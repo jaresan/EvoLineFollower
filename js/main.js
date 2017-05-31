@@ -6,6 +6,7 @@ window.a = new Robot();
 console.log(a);
 a.setSpeedCoeff(1, 1);
 
+window.world = new World();
 window.moveRobot = (duration = 1, left, right) => {
   if (left !== undefined && right !== undefined) {
     a.setSpeedCoeff(left, right);

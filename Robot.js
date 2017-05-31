@@ -1,6 +1,6 @@
 import * as Settings from './constants/WorldSettings';
 import * as Sensors from './constants/sensors';
-import { multiplyMatrices, roundWithPrecision } from './utils';
+import { multiplyMatrices, roundWithPrecision, rotatePoint } from './utils';
 
 // FIXME: Add some constants to constructor (e.g. max speed, sensor interval)
 const servoStop = 1500;
@@ -8,7 +8,7 @@ const servoSpeedSpread = 200;
 const leftServoCoeff = 1;
 const rightServoCoeff = -1;
 const maxSpeedMPerS = 0.01;
-const sensorIntervalInS = 0.005;  // Interval between each sensor reading in milliseconds
+const sensorInterval = 0.005;  // Interval between each sensor reading in milliseconds
 const positionPrecision = 5;
 
 export function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neuralAbsoluteMax) {
@@ -18,18 +18,24 @@ export function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neu
   const neuralSpread = neuralAbsoluteMax - neuralAbsoluteMin;
 
   return neuralOutput.map(val => {
-    const coeff = mapToMin + (val - neuralAbsoluteMin) / neuralSpread * spread;
-    return coeff * servoSpeedSpread;
+    return mapToMin + (val - neuralAbsoluteMin) / neuralSpread * spread;
   });
 }
 
 const initialState = {
   sensorData: [],
   rotation: 0,
-  wheelBase: 0.01,
-  sensorDistance: 0.01,
+  wheelBase: 0.1,
   leftWheel: servoStop,
   rightWheel: servoStop,
+  sensorDeltas: [ // Sensor position in relation to the center of the wheel axel -> [deltaX, deltaY] in meters
+    [0.1, 0.05],
+    [0.1, 0.02],
+    [0.1, 0],
+    [0.1, -0.02],
+    [0.1, -0.05]
+  ],
+  sensorRadius: 0.01, // Half of the square side of the sensor (to know how much the sensor can see)
   behaviour: {
     neuralNet: {
       activate: () => [1,1]
@@ -49,23 +55,22 @@ export default class Robot {
     }
   }
 
-  get position() {
-    return this._position;
-  }
-
   get stopped() {
     return this.leftWheel === this.rightWheel === servoStop;
   }
 
-  constructor({x = 0, y = 0, rotation, wheelBase, sensorDistance, behaviour} = initialState) {
-    for (let key in initialState) {
-      this[key] = initialState[key];
-    }
+  constructor({x = 0, y = 0, rotation, wheelBase, sensorDeltas, behaviour} = initialState) {
     this.wheelBase = wheelBase;
-    this.sensorDistance = sensorDistance;
-    this._position = { x, y };
+    this.sensorDeltas = sensorDeltas;
+    this.position = { x, y };
     this.rotation = rotation;
     this.behaviour = behaviour;
+
+    for (let key in initialState) {
+      if (this[key] === undefined){
+        this[key] = initialState[key];
+      }
+    }
   }
 
   getServoSpeedsForSensorInput(sensors) {
@@ -92,9 +97,16 @@ export default class Robot {
     this.rightWheel = servoStop + (servoSpeedSpread * right) * leftServoCoeff;
   }
 
+  getSensorPosition(deltaX, deltaY) {
+    const {x, y} = this.position;
+    return rotatePoint(x, y, x + deltaX, y + deltaY, this.rotation);
+  }
+
   readSensors(world) {
-    // FIXME: Add checking for black line
-    // Check for rotation, position, sensor distance from wheel base etc
+    return this.sensorDeltas.map(([deltaX, deltaY]) => {
+      const [x, y] = this.getSensorPosition(deltaX, deltaY);
+      return world.canSeeLine(x, y, this.sensorRadius);
+    });
   }
 
   updateState(world) {
@@ -107,21 +119,14 @@ export default class Robot {
     }
   }
 
-  tick(world, sensorIntervalInS = sensorIntervalInS) {
+  tick(world, sensorIntervalInS = sensorInterval) {
     this.updateState(world);
     this.move(sensorIntervalInS);
   }
 
   move(moveDuration) {
-    // FIXME: Implement
-    // TODO: Compute sin/cos etc..
-    // TODO: Add sensor weights from the neural network
-
-    // FIXME: Need to know the sensor interval and max speed to compute velocity / position change
-    // FIXME: Map left/right MPerS speeds to pixel speeds
-
     const {x, y} = this.position;
-    const {leftSpeed, rightSpeed} = this.speed;
+    const {left: leftSpeed, right: rightSpeed} = this.speed;
     const leftDelta = moveDuration * leftSpeed;
     const rightDelta = moveDuration * rightSpeed;
 
@@ -138,7 +143,7 @@ export default class Robot {
       newY = y + (rightDelta * Math.sin(this.rotation));
     }
 
-    this._position = {
+    this.position = {
       x: roundWithPrecision(newX, positionPrecision),
       y: roundWithPrecision(newY, positionPrecision)
     };

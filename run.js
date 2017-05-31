@@ -7,7 +7,6 @@ function run(neuralNet, fitnessFunction, map) {
     y: 0,
     rotation: 0,
     wheelBaseInMM: 100,
-    sensorDistanceInMM: 100,
     behavior: neuralNet
   });
 
