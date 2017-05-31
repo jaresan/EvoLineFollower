@@ -151,6 +151,16 @@ export default class Robot {
     return [newX, newY];
   }
 
+  runUntilStop(world, fitnessTicker = () => 0) {
+    let fitnessValue = 0;
+    while (!this.stopped) {
+      this.tick(world);
+      fitnessValue += fitnessTicker(this);
+    }
+
+    return fitnessValue;
+  }
+
   stop() {
     this.setSpeedCoeff(0, 0);
   }

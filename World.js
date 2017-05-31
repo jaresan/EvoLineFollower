@@ -43,8 +43,6 @@ export default class World {
     newX = Math.round(newX);
     newY = Math.round(newY);
 
-    console.log(newX, newY);
-
     let lineSeen = false;
     for (let i = 0; i <= radius; i++) {
       for (let j = 0; j <= radius; j++) {
