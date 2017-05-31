@@ -2,14 +2,63 @@ import * as Settings from './constants/WorldSettings';
 
 export default class World {
 
-  constructor() {
+  /**
+   *
+   * @param imageData Image data (width, height, array of pixels).
+   * @param realWidth Real track width in metres.
+   * @param realHeight Real track height in metres/
+   */
+  constructor(imageData, realWidth, realHeight) {
+    const {width, height, pixels} = imageData;
+
+    const fieldWidth = realWidth * Settings.PIXELS_PER_M;
+    const fieldHeight = realHeight * Settings.PIXELS_PER_M;
+    const stepX = width / fieldWidth;
+    const stepY = height / fieldHeight;
+
     this.field = [];
-    for (let i = 0; i < Settings.FIELD_WIDTH_IN_M * Settings.PIXELS_PER_M * 10; i++) {
+    for (let i = 0; i < fieldWidth; i++) {
       this.field[i] = [];
-      this.field[i][Settings.FIELD_HEIGHT_IN_M * Settings.PIXELS_PER_M - 1] = 0;
+      this.field[i][fieldHeight - 1] = 0;
     }
 
-    this.field[0.1 * Settings.PIXELS_PER_M][0.3 * Settings.PIXELS_PER_M] = 1;
+    for (let i = 0; i < fieldHeight; i++) {
+      if (i % 1000 === 0) console.log(i / 1000);
+      const indexY = Math.min(Math.floor(i * stepY), height - 1);
+      for (let j = 0; j < fieldWidth; j++) {
+        const indexX = Math.min(Math.floor(j * stepX), width - 1);
+        this.field[j][i] = pixels[indexX][indexY] !== 255 ? 1 : 0;
+      }
+    }
+
+    console.log('--- World loaded ---');
+  }
+
+  drawWorld(scale) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+
+    const field = this.field;
+
+    canvas.width = field.length / scale;
+    canvas.height = field[0].length / scale;
+
+    function drawPixel(x, y) {
+      ctx.fillStyle = "rgba(0, 0, 0, 100)";
+      ctx.fillRect(x, y, 1, 1);
+    }
+
+    for (let i = 0; i < field[0].length; i+= scale) {
+      if (i % 1000 === 0) console.log(i);
+      for (let j = 0; j < field.length; j+= scale) {
+        if (field[j][i]) {
+          drawPixel(j / scale, i / scale);
+        }
+      }
+    }
+
+    document.body.append(canvas);
   }
 
   /**
