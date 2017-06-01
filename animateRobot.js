@@ -28,7 +28,7 @@ export function animate(robot, world) {
   const ctx = canvas.getContext('2d');
   setInterval(() => {
     // world.drawWorld(1, ctx);
-    robot.tick(world, 0.25);
+    robot.tick(world, 0.02);
     drawRobot(ctx, robot, world);
-  },5);
+  },10);
 }

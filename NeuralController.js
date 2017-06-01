@@ -17,21 +17,6 @@ export function neatFromJSON(json) {
   return Network.fromJSON(json);
 }
 
-
-function loop(){
-  neat.evolve();
-
-  const network = neat.getFittest();
-
-  // stopping condition
-  // TODO: change stopping condition accoring to new fitness (low threshold? max iteration? both?)
-  if (network.score == 0){
-    drawGraph(network.graph(500, 500), '.draw');
-    document.getElementById("json").innerHTML = JSON.stringify(network.toJSON(), undefined, 2);
-    return;
-  }
-}
-
 function fitness(genome){
   // >>>>>>> UNCLE SAM NEEDS YOU! <<<<<<<<<
   // var fitness = Simulator.simulate(genome); // or whatever...

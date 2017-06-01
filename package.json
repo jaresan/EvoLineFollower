@@ -4,7 +4,9 @@
   "description": "Evolutionary algorithm implementation for finding the best line following robot behaviour.",
   "main": "index.js",
   "dependencies": {
+    "babel-cli": "^6.24.1",
     "babel-loader": "^7.0.0",
+    "babel-preset-node6": "^11.0.0",
     "webpack": "^2.6.1"
   },
   "devDependencies": {

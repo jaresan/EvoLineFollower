@@ -1952,7 +1952,7 @@ Network.prototype = {
       }
 
       for(let conn in this.connections){
-        var conn = this.connections[conn];
+        conn = this.connections[conn];
         var tojson = conn.toJSON();
         tojson.from = this.nodes.indexOf(conn.from);
         tojson.to = this.nodes.indexOf(conn.to);
@@ -2063,7 +2063,7 @@ Network.prototype = {
    }
 
    for(let conn in json.connections){
-     var conn = json.connections[conn];
+     conn = json.connections[conn];
 
      var connection = network.connect(network.nodes[conn.from], network.nodes[conn.to])[0];
      connection.weight = conn.weight;
@@ -2196,7 +2196,7 @@ Network.prototype = {
 
    var n1connections = network1.connections.concat(network1.selfconns);
    for(let conn in n1connections){
-     var conn = n1connections[conn];
+     conn = n1connections[conn];
      var data = {
        weight: conn.weight,
        from  : network1.nodes.indexOf(conn.from),
@@ -2216,7 +2216,7 @@ Network.prototype = {
 
    var n2connections = network2.connections.concat(network2.selfconns);
    for(let conn in n2connections){
-     var conn = n2connections[conn];
+     conn = n2connections[conn];
      var data = {
        weight: conn.weight,
        from  : network2.nodes.indexOf(conn.from),
@@ -2248,7 +2248,7 @@ Network.prototype = {
    // Create a list of conn genes for the offspring
    var connections = [];
    for(let conn in commongenes){
-     var conn = Math.random() >= 0.5 ? commongenes[conn][0] : commongenes[conn][1];
+     conn = Math.random() >= 0.5 ? commongenes[conn][0] : commongenes[conn][1];
      connections.push(conn);
    }
 
@@ -2268,7 +2268,7 @@ Network.prototype = {
      if(connData.to < size && connData.from < size){
        var from = offspring.nodes[connData.from];
        var to   = offspring.nodes[connData.to];
-       var conn = offspring.connect(from, to)[0];
+       conn = offspring.connect(from, to)[0];
 
        conn.weight = connData.weight;
 

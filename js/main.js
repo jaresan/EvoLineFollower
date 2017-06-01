@@ -1,9 +1,37 @@
 import World from '../World';
 import Robot from '../Robot';
-import { run2 } from '../run';
-import { animate } from '../animateRobot';
-import { neatFromJSON } from '../NeuralController';
-import { network3 as neuralNet } from '../networkResults/networks';
+import { train, test } from '../run';
+import * as Fitness from '../constants/fitnessFunctions';
+
+const servoStop = 1500;
+const robot = new Robot({
+  x: 0.35,
+  y: 0.88,
+  leftWheel: servoStop,
+  rightWheel: servoStop,
+  rotation: 0,
+  wheelBase: 0.1,
+  sensorDeltas: [ // Sensor position in relation to the center of the wheel axel -> [deltaX, deltaY] in meters
+    [0.1, 0.05],
+    [0.1, 0.02],
+    [0.1, 0],
+    [0.1, -0.02],
+    [0.1, -0.05]
+  ],
+  sensorRadius: 0.005, // Half of the square side of the sensor (to know how much the sensor can see)
+  behavior: {
+    neuralNet: {
+      activate: () => [-100, -100]
+    },
+    absoluteMin: -1,
+    absoluteMax: 1
+  }
+});
+
+function run(robot, world) {
+  train(robot, world, Fitness.speed);
+  // test(robot, world, Networks.network1);
+}
 
 function getResizedImage(src, targetWidth) {
   return new Promise((resolve, reject) => {
@@ -49,32 +77,8 @@ function getResizedImage(src, targetWidth) {
 window.runApp = () => {
   getResizedImage('/assets/track.png', 1000).then(img => {
     console.log('--- Image loaded ---');
-    window.img = img;
     const world = new World(img, 1, 1);
-    window.world = world;
-    // run2(world);
-
-    const network = neatFromJSON(neuralNet);
-
-    const robot = new Robot({
-      x: 0.35,
-      y: 0.88,
-      rotation: 0,
-      wheelBase: 0.01,
-      behavior: {
-        neuralNet: network,
-        absoluteMin: 0,
-        absoluteMax: 1
-      }
-    });
-    window.animateRobot = animate.bind(this, robot, window.world);
-//   window.moveRobot = (duration = 1, left, right) => {
-//     if (left !== undefined && right !== undefined) {
-//       a.setSpeedCoeff(left, right);
-//     }
-//     a.move(duration);
-//     console.log(`Position: ${JSON.stringify(a.position)}, rotation: ${a.rotation}`);
-//   };
+    run(robot, world);
   });
 };
 

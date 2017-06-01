@@ -7,8 +7,8 @@ const servoStop = 1500;
 const servoSpeedSpread = 200;
 const leftServoCoeff = 1;
 const rightServoCoeff = -1;
-const maxSpeedMPerS = 0.01;
-const sensorInterval = 0.005;  // Interval between each sensor reading in milliseconds
+const maxSpeedMPerS = 0.05;
+const sensorInterval = 0.02;  // Interval between each sensor reading in milliseconds
 const positionPrecision = 9;
 
 export function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neuralAbsoluteMax) {
@@ -35,15 +35,14 @@ const initialState = {
     [0.1, -0.02],
     [0.1, -0.05]
   ],
-  sensorRadius: 0.01, // Half of the square side of the sensor (to know how much the sensor can see)
+  sensorRadius: 0.005, // Half of the square side of the sensor (to know how much the sensor can see)
   behavior: {
     neuralNet: {
       activate: () => [1,1]
     },
     absoluteMin: -1,
     absoluteMax: 1
-  }  // Behavior specified as neural net + it's maximum/minimum output
-  // (last layer should have only two neurons, corresponding to the two servos)
+  }
 };
 
 export default class Robot {
@@ -94,7 +93,7 @@ export default class Robot {
    */
   setSpeedCoeff(left, right) {
     this.leftWheel = servoStop + (servoSpeedSpread * left) * leftServoCoeff;
-    this.rightWheel = servoStop + (servoSpeedSpread * right) * leftServoCoeff;
+    this.rightWheel = servoStop + (servoSpeedSpread * right) * rightServoCoeff;
   }
 
   getSensorPosition(deltaX, deltaY) {
@@ -157,7 +156,7 @@ export default class Robot {
     this.tick(world);
     fitnessValue += fitnessTicker();
     let iteration = 0;
-    const maxIterations = 100000;
+    const maxIterations = 10000;
     while (!this.stopped && iteration < maxIterations) {
       this.tick(world);
       fitnessValue += fitnessTicker();

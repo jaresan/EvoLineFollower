@@ -618,3 +618,417 @@ export const network3 = {
   "output": 2,
   "dropout": 0
 };
+
+// fitness - 100k
+export const network4 = {
+  "nodes": [
+    {
+      "bias": 0,
+      "type": "input",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "0"
+    },
+    {
+      "bias": 0,
+      "type": "input",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "1"
+    },
+    {
+      "bias": 0,
+      "type": "input",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "2"
+    },
+    {
+      "bias": 0,
+      "type": "input",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "3"
+    },
+    {
+      "bias": 0,
+      "type": "input",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "4"
+    },
+    {
+      "bias": 0.6892916720154102,
+      "type": "hidden",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "5"
+    },
+    {
+      "bias": 1.4545744027773517,
+      "type": "hidden",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "6"
+    },
+    {
+      "bias": 0.08988719658940489,
+      "type": "hidden",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "7"
+    },
+    {
+      "bias": 0.05531118531110499,
+      "type": "output",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "8"
+    },
+    {
+      "bias": 0.1551242798283498,
+      "type": "output",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "9"
+    }
+  ],
+  "connections": [
+    {
+      "weight": -0.006801414171271419,
+      "from": 0,
+      "to": 5,
+      "gater": null
+    },
+    {
+      "weight": -0.08748799538403702,
+      "from": 1,
+      "to": 5,
+      "gater": null
+    },
+    {
+      "weight": -0.8206502082392902,
+      "from": 0,
+      "to": 6,
+      "gater": null
+    },
+    {
+      "weight": -0.05724090531977497,
+      "from": 2,
+      "to": 5,
+      "gater": null
+    },
+    {
+      "weight": -0.003455283107643939,
+      "from": 1,
+      "to": 6,
+      "gater": null
+    },
+    {
+      "weight": 0.07719501305199708,
+      "from": 0,
+      "to": 7,
+      "gater": null
+    },
+    {
+      "weight": -0.0934021826462336,
+      "from": 3,
+      "to": 5,
+      "gater": null
+    },
+    {
+      "weight": 0.09129886617944946,
+      "from": 2,
+      "to": 6,
+      "gater": null
+    },
+    {
+      "weight": -0.9008431956042026,
+      "from": 1,
+      "to": 7,
+      "gater": null
+    },
+    {
+      "weight": 0.012923087663063187,
+      "from": 4,
+      "to": 5,
+      "gater": null
+    },
+    {
+      "weight": -0.18482375014493463,
+      "from": 3,
+      "to": 6,
+      "gater": null
+    },
+    {
+      "weight": 0.0050474349591763945,
+      "from": 2,
+      "to": 7,
+      "gater": null
+    },
+    {
+      "weight": 0.7657850615825799,
+      "from": 4,
+      "to": 6,
+      "gater": null
+    },
+    {
+      "weight": -0.04840763559414812,
+      "from": 3,
+      "to": 7,
+      "gater": null
+    },
+    {
+      "weight": -0.04287285976474209,
+      "from": 4,
+      "to": 7,
+      "gater": null
+    },
+    {
+      "weight": -0.06362429342523607,
+      "from": 5,
+      "to": 8,
+      "gater": null
+    },
+    {
+      "weight": -0.06342215384803525,
+      "from": 6,
+      "to": 8,
+      "gater": null
+    },
+    {
+      "weight": -0.06549201797536092,
+      "from": 5,
+      "to": 9,
+      "gater": null
+    },
+    {
+      "weight": -0.0187052774358282,
+      "from": 7,
+      "to": 8,
+      "gater": null
+    },
+    {
+      "weight": -0.03464163955047676,
+      "from": 6,
+      "to": 9,
+      "gater": null
+    },
+    {
+      "weight": -0.07398725249191292,
+      "from": 7,
+      "to": 9,
+      "gater": null
+    }
+  ],
+  "input": 5,
+  "output": 2,
+  "dropout": 0
+};
+
+export const network5 = {"nodes":[{"bias":0,"type":"input","squash":"LOGISTIC","mask":1,"index":"0"},{"bias":0,"type":"input","squash":"LOGISTIC","mask":1,"index":"1"},{"bias":0,"type":"input","squash":"LOGISTIC","mask":1,"index":"2"},{"bias":0,"type":"input","squash":"LOGISTIC","mask":1,"index":"3"},{"bias":0,"type":"input","squash":"LOGISTIC","mask":1,"index":"4"},{"bias":1.631202383152079,"type":"hidden","squash":"LOGISTIC","mask":1,"index":"5"},{"bias":-0.20103589987176063,"type":"hidden","squash":"LOGISTIC","mask":1,"index":"6"},{"bias":0.3259439683622135,"type":"hidden","squash":"LOGISTIC","mask":1,"index":"7"},{"bias":-0.05568984132460453,"type":"output","squash":"LOGISTIC","mask":1,"index":"8"},{"bias":0.15405725428714248,"type":"output","squash":"LOGISTIC","mask":1,"index":"9"}],"connections":[{"weight":0.058552852345609224,"from":0,"to":5,"gater":null},{"weight":-0.26642993364810064,"from":1,"to":5,"gater":null},{"weight":-0.8948492098360558,"from":0,"to":6,"gater":null},{"weight":-0.29089788531496724,"from":2,"to":5,"gater":null},{"weight":0.09071163664231269,"from":1,"to":6,"gater":null},{"weight":0.08904655373460943,"from":0,"to":7,"gater":null},{"weight":0.07247629558125182,"from":3,"to":5,"gater":null},{"weight":-0.644325262822634,"from":2,"to":6,"gater":null},{"weight":0.3896921459823211,"from":1,"to":7,"gater":null},{"weight":-0.006925080254781293,"from":4,"to":5,"gater":null},{"weight":2.5625345396252532,"from":3,"to":6,"gater":null},{"weight":0.8890271856270183,"from":2,"to":7,"gater":null},{"weight":0.169292879270407,"from":4,"to":6,"gater":null},{"weight":0.039943000359353054,"from":3,"to":7,"gater":null},{"weight":0.018376233226417946,"from":4,"to":7,"gater":null},{"weight":-0.09933825949297287,"from":5,"to":8,"gater":null},{"weight":1.020178616889017,"from":6,"to":8,"gater":null},{"weight":-0.02048450497085255,"from":5,"to":9,"gater":null},{"weight":-0.08911461950861388,"from":7,"to":8,"gater":null},{"weight":-0.009891840242945399,"from":6,"to":9,"gater":null},{"weight":-0.044158217749056,"from":7,"to":9,"gater":null}],"input":5,"output":2,"dropout":0};
+export const network6 = {
+  "nodes": [
+    {
+      "bias": 0,
+      "type": "input",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "0"
+    },
+    {
+      "bias": 0,
+      "type": "input",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "1"
+    },
+    {
+      "bias": 0,
+      "type": "input",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "2"
+    },
+    {
+      "bias": 0,
+      "type": "input",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "3"
+    },
+    {
+      "bias": 0,
+      "type": "input",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "4"
+    },
+    {
+      "bias": 0.3854443508917985,
+      "type": "hidden",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "5"
+    },
+    {
+      "bias": -0.6856664945671191,
+      "type": "hidden",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "6"
+    },
+    {
+      "bias": 2.570829224549978,
+      "type": "hidden",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "7"
+    },
+    {
+      "bias": 0.06637415989796827,
+      "type": "output",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "8"
+    },
+    {
+      "bias": -0.09070568799241699,
+      "type": "output",
+      "squash": "LOGISTIC",
+      "mask": 1,
+      "index": "9"
+    }
+  ],
+  "connections": [
+    {
+      "weight": -0.1513499101852087,
+      "from": 0,
+      "to": 5,
+      "gater": null
+    },
+    {
+      "weight": -0.03382208762401864,
+      "from": 1,
+      "to": 5,
+      "gater": null
+    },
+    {
+      "weight": 2.617754363032526,
+      "from": 0,
+      "to": 6,
+      "gater": null
+    },
+    {
+      "weight": 0.046846026162335075,
+      "from": 2,
+      "to": 5,
+      "gater": null
+    },
+    {
+      "weight": 3.1412747600922706,
+      "from": 1,
+      "to": 6,
+      "gater": null
+    },
+    {
+      "weight": -1.3182603655324492,
+      "from": 0,
+      "to": 7,
+      "gater": null
+    },
+    {
+      "weight": -1.0464659964664647,
+      "from": 3,
+      "to": 5,
+      "gater": null
+    },
+    {
+      "weight": 0.05500625847597079,
+      "from": 2,
+      "to": 6,
+      "gater": null
+    },
+    {
+      "weight": -2.2625370978098527,
+      "from": 1,
+      "to": 7,
+      "gater": null
+    },
+    {
+      "weight": 0.03823907248978897,
+      "from": 4,
+      "to": 5,
+      "gater": null
+    },
+    {
+      "weight": 0.7495965135054362,
+      "from": 3,
+      "to": 6,
+      "gater": null
+    },
+    {
+      "weight": -0.061698524255601184,
+      "from": 2,
+      "to": 7,
+      "gater": null
+    },
+    {
+      "weight": 3.0751708906102095,
+      "from": 4,
+      "to": 6,
+      "gater": null
+    },
+    {
+      "weight": -1.327649481277057,
+      "from": 3,
+      "to": 7,
+      "gater": null
+    },
+    {
+      "weight": 0.20311364823095235,
+      "from": 4,
+      "to": 7,
+      "gater": null
+    },
+    {
+      "weight": 0.02505759688082715,
+      "from": 5,
+      "to": 8,
+      "gater": null
+    },
+    {
+      "weight": -0.7601283672038,
+      "from": 6,
+      "to": 8,
+      "gater": null
+    },
+    {
+      "weight": 0.36263591558948244,
+      "from": 5,
+      "to": 9,
+      "gater": null
+    },
+    {
+      "weight": 0.3274129077811835,
+      "from": 7,
+      "to": 8,
+      "gater": null
+    },
+    {
+      "weight": -0.3252648925411429,
+      "from": 6,
+      "to": 9,
+      "gater": null
+    },
+    {
+      "weight": 0.0007919110338098501,
+      "from": 7,
+      "to": 9,
+      "gater": null
+    }
+  ],
+  "input": 5,
+  "output": 2,
+  "dropout": 0
+};

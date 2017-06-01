@@ -1,55 +1,36 @@
 import Robot from './Robot';
 import World from './World';
 import { createNeat } from './NeuralController';
-import { speedAndMiddleOnLine } from './constants/fitnessFunctions';
+import { animate } from './animateRobot';
 
-function run(neuralNet, fitnessFunction, map) {
-  const robot = new Robot({
-    x: 0,
-    y: 0,
-    rotation: 0,
-    wheelBaseInMM: 100,
-    behavior: neuralNet
-  });
-
-  const world = new World(map);
-
-  while (!robot.stopped) {
-    robot.updateState(world);
-    robot.move();
-  }
-
+export function test(robot, world, network) {
+  robot.behavior.neuralNet = network;
+  window.animateRobot = animate.bind(this, robot, world);
 }
 
-export function run2(world) {
-  const neuralNet = createNeat(fitnessEvaluator.bind(this, world));
+export function train(robot, world, fitness) {
+  console.log('--- Evolution started! ---');
+  const neuralNet = createNeat(fitnessEvaluator.bind(this, robot, world, fitness));
 
   let iteration = 0;
   const maxIterations = 100;
   let network;
+  const scores = [];
+  const scoreMap = {};
   while (iteration++ < maxIterations) {
     neuralNet.evolve();
 
     network = neuralNet.getFittest();
-    console.log(network.score, JSON.stringify(network.toJSON(), undefined, 2));
+    scores.push(network.score);
+    console.log(scores);
+    scoreMap[network.score] = network;
   }
 
   console.log(JSON.stringify(network.toJSON(), undefined, 2));
-  console.log('Score: ', network.score);
+  console.log('Best Score: ', network.score);
 }
 
-function fitnessEvaluator(world, genome) {
-  const robot = new Robot({
-    x: 0.35,
-    y: 0.88,
-    rotation: 0,
-    wheelBase: 0.1,
-    behavior: {
-      neuralNet: genome,
-      absoluteMin: 0,
-      absoluteMax: 1
-    }
-  });
-
-  return robot.runUntilStop(world, speedAndMiddleOnLine.bind(this, robot, world));
+function fitnessEvaluator(robot, world, fitness, genome) {
+  robot.behavior.neuralNet = genome;
+  return robot.runUntilStop(world, fitness.bind(this, robot, world));
 }
