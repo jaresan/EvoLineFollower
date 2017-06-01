@@ -20,8 +20,8 @@ export default class Robot {
   get speed() {
     // Signifies instant left/right wheel speed
     return {
-      left: ((this.leftWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed,
-      right: ((this.rightWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed
+      left: this.leftServoCoeff * ((this.leftWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed,
+      right: this.rightServoCoeff * ((this.rightWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed
     }
   }
 
@@ -36,7 +36,7 @@ export default class Robot {
       }
     }
 
-    console.log(this.servoStop);
+    this.setSpeedCoeff(params.startSpeed[0], params.startSpeed[1]);
   }
 
   getServoSpeedsForSensorInput(sensors) {
@@ -117,7 +117,7 @@ export default class Robot {
     return [newX, newY];
   }
 
-  runUntilStop(world, fitnessTicker = () => 0) {
+  runUntilStop(world, fitnessTicker) {
     let fitnessValue = 0;
 
     this.tick(world);
@@ -135,10 +135,6 @@ export default class Robot {
 
   stop() {
     this.setSpeedCoeff(0, 0);
-  }
-
-  getFitnessValue(fitnessFunction) {
-    return fitnessFunction(this);
   }
 
 }

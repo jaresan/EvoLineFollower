@@ -1,4 +1,5 @@
 import * as Settings from './constants/WorldSettings';
+import Robot from './Robot';
 
 function drawRobot(ctx, robot, world) {
   const {x, y} = world.convertWorldCoordsToFieldCoords(
@@ -22,7 +23,8 @@ function drawRobot(ctx, robot, world) {
   ctx.fill();
 }
 
-export function animate(robot, world, speedCoeff) {
+export function animate(robotParams, world, speedCoeff) {
+  const robot = new Robot(robotParams);
   const canvas = world.drawWorld();
   document.body.append(canvas);
   const ctx = canvas.getContext('2d');

@@ -1,24 +1,23 @@
 import World from '../World';
-import Robot from '../Robot';
 import { train, test } from '../run';
 import * as Fitness from '../constants/fitnessFunctions';
 import { parseNetwork } from '../NeuralController';
 import * as Networks from '../networkResults/networks';
+import { fromJS } from 'immutable';
 
 const servoStop = 1500;
-const robot = new Robot({
+const robotParams = {
   position: {
     x: 0.35,
     y: 0.88,
   },
   sensorInterval: 0.02,
   maxSpeed: 0.05,
+  startSpeed: [0.3, 0.3],
   servoStop: servoStop,
   servoSpeedSpread: 200,
   leftServoCoeff: 1,
   rightServoCoeff: -1,
-  leftWheel: servoStop,
-  rightWheel: servoStop,
   rotation: 0,
   wheelBase: 0.1,
   sensorDeltas: [ // Sensor position in relation to the center of the wheel axel -> [deltaX, deltaY] in meters
@@ -36,12 +35,12 @@ const robot = new Robot({
     absoluteMin: -1,
     absoluteMax: 1
   }
-});
+};
 
 const animationSpeedCoeff = 10;
-function run(robot, world) {
-  // train(robot, world, Fitness.speed);
-  test(robot, world, parseNetwork(Networks.network6), animationSpeedCoeff);
+function run(robotParams, world) {
+  train(robotParams, world, Fitness.middleOnLine);
+  // test(robotParams, world, parseNetwork(Networks.network6), animationSpeedCoeff);
 }
 
 function getResizedImage(src, targetWidth) {
@@ -89,7 +88,7 @@ window.runApp = () => {
   getResizedImage('/assets/track.png', 1000).then(img => {
     console.log('--- Image loaded ---');
     const world = new World(img, 1, 1);
-    run(robot, world);
+    run(robotParams, world);
   });
 };
 

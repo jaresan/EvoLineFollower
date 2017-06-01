@@ -1,14 +1,15 @@
 import { createNeat } from './NeuralController';
 import { animate } from './animateRobot';
+import Robot from './Robot';
 
-export function test(robot, world, network, speedCoeff) {
-  robot.behavior.neuralNet = network;
-  window.animateRobot = animate.bind(this, robot, world, speedCoeff);
+export function test(robotParams, world, network, speedCoeff) {
+  robotParams.behavior.neuralNet = network;
+  window.animateRobot = animate.bind(this, robotParams, world, speedCoeff);
 }
 
-export function train(robot, world, fitness) {
+export function train(robotParams, world, fitness) {
   console.log('--- Evolution started! ---');
-  const neuralNet = createNeat(fitnessEvaluator.bind(this, robot, world, fitness));
+  const neuralNet = createNeat(fitnessEvaluator.bind(this, robotParams, world, fitness));
 
   let iteration = 0;
   const maxIterations = 100;
@@ -28,7 +29,8 @@ export function train(robot, world, fitness) {
   console.log('Best Score: ', network.score);
 }
 
-function fitnessEvaluator(robot, world, fitness, genome) {
+function fitnessEvaluator(robotParams, world, fitness, genome) {
+  const robot = new Robot(robotParams);
   robot.behavior.neuralNet = genome;
   return robot.runUntilStop(world, fitness.bind(this, robot, world));
 }
