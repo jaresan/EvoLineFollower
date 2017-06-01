@@ -39,8 +39,8 @@ const robotParams = {
 
 const animationSpeedCoeff = 10;
 function run(robotParams, world) {
-  train(robotParams, world, Fitness.middleOnLine);
-  // test(robotParams, world, parseNetwork(Networks.network6), animationSpeedCoeff);
+  // train(robotParams, world, Fitness.middleOnLine);
+  test(robotParams, world, parseNetwork(Networks.network7), animationSpeedCoeff);
 }
 
 function getResizedImage(src, targetWidth) {
