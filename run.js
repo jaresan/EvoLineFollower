@@ -25,13 +25,13 @@ export function run2(world) {
   const neuralNet = createNeat(fitnessEvaluator.bind(this, world));
 
   let iteration = 0;
-  const maxIterations = 5;
+  const maxIterations = 100;
   let network;
   while (iteration++ < maxIterations) {
     neuralNet.evolve();
 
     network = neuralNet.getFittest();
-    console.log(network.score);
+    console.log(network.score, JSON.stringify(network.toJSON(), undefined, 2));
   }
 
   console.log(JSON.stringify(network.toJSON(), undefined, 2));
@@ -40,10 +40,10 @@ export function run2(world) {
 
 function fitnessEvaluator(world, genome) {
   const robot = new Robot({
-    x: 0.75,
-    y: 0.4,
+    x: 0.35,
+    y: 0.88,
     rotation: 0,
-    wheelBase: 0.01,
+    wheelBase: 0.1,
     behavior: {
       neuralNet: genome,
       absoluteMin: 0,

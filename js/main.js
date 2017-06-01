@@ -1,5 +1,9 @@
 import World from '../World';
+import Robot from '../Robot';
 import { run2 } from '../run';
+import { animate } from '../animateRobot';
+import { neatFromJSON } from '../NeuralController';
+import { network3 as neuralNet } from '../networkResults/networks';
 
 function getResizedImage(src, targetWidth) {
   return new Promise((resolve, reject) => {
@@ -48,7 +52,22 @@ window.runApp = () => {
     window.img = img;
     const world = new World(img, 1, 1);
     window.world = world;
-    run2(world);
+    // run2(world);
+
+    const network = neatFromJSON(neuralNet);
+
+    const robot = new Robot({
+      x: 0.35,
+      y: 0.88,
+      rotation: 0,
+      wheelBase: 0.01,
+      behavior: {
+        neuralNet: network,
+        absoluteMin: 0,
+        absoluteMax: 1
+      }
+    });
+    window.animateRobot = animate.bind(this, robot, window.world);
 //   window.moveRobot = (duration = 1, left, right) => {
 //     if (left !== undefined && right !== undefined) {
 //       a.setSpeedCoeff(left, right);

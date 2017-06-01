@@ -1,4 +1,4 @@
-import { Neat, Methods, Architect } from './NEAT/libs/neataptic';
+import { Neat, Methods, Architect, Network } from './NEAT/libs/neataptic';
 
 export function createNeat(fitnessFunction){
   return new Neat(5, 2, fitnessFunction, {
@@ -11,6 +11,10 @@ export function createNeat(fitnessFunction){
     popsize: 100,
     network: Architect.Perceptron(5, 3, 2)
   });
+}
+
+export function neatFromJSON(json) {
+  return Network.fromJSON(json);
 }
 
 

@@ -34,15 +34,16 @@ export default class World {
     console.log('--- World loaded ---');
   }
 
-  drawWorld(scale = 1) {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-
+  drawWorld(scale = 1, ctx2) {
     const field = this.field;
 
-    canvas.width = field.length / scale;
-    canvas.height = field[0].length / scale;
+    let canvas, ctx = ctx2;
+    if (!ctx2) {
+      canvas = document.createElement('canvas');
+      ctx = canvas.getContext('2d');
+      canvas.width = field.length / scale;
+      canvas.height = field[0].length / scale;
+    }
 
     function drawPixel(x, y) {
       ctx.fillStyle = "rgba(0, 0, 0, 100)";
@@ -50,7 +51,6 @@ export default class World {
     }
 
     for (let i = 0; i < field[0].length; i+= scale) {
-      if (i % 1000 === 0) console.log(i);
       for (let j = 0; j < field.length; j+= scale) {
         if (field[j][i]) {
           drawPixel(j / scale, i / scale);
@@ -58,7 +58,7 @@ export default class World {
       }
     }
 
-    document.body.append(canvas);
+    return canvas;
   }
 
   /**
