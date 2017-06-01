@@ -2,6 +2,8 @@ import World from '../World';
 import Robot from '../Robot';
 import { train, test } from '../run';
 import * as Fitness from '../constants/fitnessFunctions';
+import { parseNetwork } from '../NeuralController';
+import * as Networks from '../networkResults/networks';
 
 const servoStop = 1500;
 const robot = new Robot({
@@ -36,9 +38,10 @@ const robot = new Robot({
   }
 });
 
+const animationSpeedCoeff = 10;
 function run(robot, world) {
-  train(robot, world, Fitness.speed);
-  // test(robot, world, Networks.network1);
+  // train(robot, world, Fitness.speed);
+  test(robot, world, parseNetwork(Networks.network6), animationSpeedCoeff);
 }
 
 function getResizedImage(src, targetWidth) {

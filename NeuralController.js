@@ -13,6 +13,10 @@ export function createNeat(fitnessFunction){
   });
 }
 
+export function parseNetwork(json) {
+  return Network.fromJSON(json);
+}
+
 export function neatFromJSON(json) {
   return Network.fromJSON(json);
 }

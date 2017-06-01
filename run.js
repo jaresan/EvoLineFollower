@@ -1,9 +1,9 @@
 import { createNeat } from './NeuralController';
 import { animate } from './animateRobot';
 
-export function test(robot, world, network) {
+export function test(robot, world, network, speedCoeff) {
   robot.behavior.neuralNet = network;
-  window.animateRobot = animate.bind(this, robot, world);
+  window.animateRobot = animate.bind(this, robot, world, speedCoeff);
 }
 
 export function train(robot, world, fitness) {

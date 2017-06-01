@@ -22,13 +22,15 @@ function drawRobot(ctx, robot, world) {
   ctx.fill();
 }
 
-export function animate(robot, world) {
+export function animate(robot, world, speedCoeff) {
   const canvas = world.drawWorld();
   document.body.append(canvas);
   const ctx = canvas.getContext('2d');
   setInterval(() => {
     // world.drawWorld(1, ctx);
-    robot.tick(world, 0.02);
+    for (let i = 0; i < speedCoeff; i++) {
+      robot.tick(world, robot.sensorInterval);
+    }
     drawRobot(ctx, robot, world);
   },10);
 }
