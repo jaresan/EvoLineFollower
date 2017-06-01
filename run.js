@@ -1,5 +1,3 @@
-import Robot from './Robot';
-import World from './World';
 import { createNeat } from './NeuralController';
 import { animate } from './animateRobot';
 

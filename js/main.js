@@ -5,8 +5,16 @@ import * as Fitness from '../constants/fitnessFunctions';
 
 const servoStop = 1500;
 const robot = new Robot({
-  x: 0.35,
-  y: 0.88,
+  position: {
+    x: 0.35,
+    y: 0.88,
+  },
+  sensorInterval: 0.02,
+  maxSpeed: 0.05,
+  servoStop: servoStop,
+  servoSpeedSpread: 200,
+  leftServoCoeff: 1,
+  rightServoCoeff: -1,
   leftWheel: servoStop,
   rightWheel: servoStop,
   rotation: 0,

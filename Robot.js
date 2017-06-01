@@ -3,12 +3,6 @@ import * as Sensors from './constants/sensors';
 import { multiplyMatrices, roundWithPrecision, rotatePoint } from './utils';
 
 // FIXME: Add some constants to constructor (e.g. max speed, sensor interval)
-const servoStop = 1500;
-const servoSpeedSpread = 200;
-const leftServoCoeff = 1;
-const rightServoCoeff = -1;
-const maxSpeedMPerS = 0.05;
-const sensorInterval = 0.02;  // Interval between each sensor reading in milliseconds
 const positionPrecision = 9;
 
 export function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neuralAbsoluteMax) {
@@ -22,54 +16,27 @@ export function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neu
   });
 }
 
-const initialState = {
-  sensorData: [],
-  rotation: 0,
-  wheelBase: 0.1,
-  leftWheel: servoStop,
-  rightWheel: servoStop,
-  sensorDeltas: [ // Sensor position in relation to the center of the wheel axel -> [deltaX, deltaY] in meters
-    [0.1, 0.05],
-    [0.1, 0.02],
-    [0.1, 0],
-    [0.1, -0.02],
-    [0.1, -0.05]
-  ],
-  sensorRadius: 0.005, // Half of the square side of the sensor (to know how much the sensor can see)
-  behavior: {
-    neuralNet: {
-      activate: () => [1,1]
-    },
-    absoluteMin: -1,
-    absoluteMax: 1
-  }
-};
-
 export default class Robot {
   get speed() {
     // Signifies instant left/right wheel speed
     return {
-      left: ((this.leftWheel - servoStop) / servoSpeedSpread) * maxSpeedMPerS,
-      right: ((this.rightWheel - servoStop) / servoSpeedSpread) * maxSpeedMPerS
+      left: ((this.leftWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed,
+      right: ((this.rightWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed
     }
   }
 
   get stopped() {
-    return this.leftWheel === this.rightWheel && this.rightWheel === servoStop;
+    return this.leftWheel === this.rightWheel && this.rightWheel === this.servoStop;
   }
 
-  constructor({x = 0, y = 0, rotation, wheelBase, sensorDeltas, behavior} = initialState) {
-    this.wheelBase = wheelBase;
-    this.sensorDeltas = sensorDeltas;
-    this.position = { x, y };
-    this.rotation = rotation;
-    this.behavior = behavior;
-
-    for (let key in initialState) {
+  constructor(params) {
+    for (let key in params) {
       if (this[key] === undefined){
-        this[key] = initialState[key];
+        this[key] = params[key];
       }
     }
+
+    console.log(this.servoStop);
   }
 
   getServoSpeedsForSensorInput(sensors) {
@@ -80,8 +47,8 @@ export default class Robot {
   }
 
   setWheelPulses(leftSpeed, rightSpeed) {
-    this.leftWheel = servoStop + leftSpeed * leftServoCoeff;
-    this.rightWheel = servoStop + rightSpeed * rightServoCoeff;
+    this.leftWheel = this.servoStop + leftSpeed * this.leftServoCoeff;
+    this.rightWheel = this.servoStop + rightSpeed * this.rightServoCoeff;
   }
 
   /**
@@ -92,8 +59,8 @@ export default class Robot {
    * @param right Speed for the right wheel <-1, 1>.
    */
   setSpeedCoeff(left, right) {
-    this.leftWheel = servoStop + (servoSpeedSpread * left) * leftServoCoeff;
-    this.rightWheel = servoStop + (servoSpeedSpread * right) * rightServoCoeff;
+    this.leftWheel = this.servoStop + (this.servoSpeedSpread * left) * this.leftServoCoeff;
+    this.rightWheel = this.servoStop + (this.servoSpeedSpread * right) * this.rightServoCoeff;
   }
 
   getSensorPosition(deltaX, deltaY) {
@@ -118,9 +85,9 @@ export default class Robot {
     }
   }
 
-  tick(world, sensorIntervalInS = sensorInterval) {
+  tick(world, sensorIntervalInS) {
     this.updateState(world);
-    this.move(sensorIntervalInS);
+    this.move(sensorIntervalInS || this.sensorInterval);
   }
 
   move(moveDuration) {
