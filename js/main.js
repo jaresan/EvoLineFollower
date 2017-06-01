@@ -3,7 +3,6 @@ import { train, test } from '../run';
 import * as Fitness from '../constants/fitnessFunctions';
 import { parseNetwork } from '../NeuralController';
 import * as Networks from '../networkResults/networks';
-import { fromJS } from 'immutable';
 
 const servoStop = 1500;
 const robotParams = {
@@ -38,6 +37,7 @@ const robotParams = {
 };
 
 const animationSpeedCoeff = 10;
+
 function run(robotParams, world) {
   // train(robotParams, world, Fitness.middleOnLine);
   test(robotParams, world, parseNetwork(Networks.network7), animationSpeedCoeff);
@@ -88,7 +88,16 @@ window.runApp = () => {
   getResizedImage('/assets/track.png', 1000).then(img => {
     console.log('--- Image loaded ---');
     const world = new World(img, 1, 1);
-    run(robotParams, world);
+    // run(robotParams, world);
+
+    window.train = (fitness = Fitness.middleOnLine) => {
+      return train(robotParams, world, fitness)
+    };
+
+    window.test = (network = Networks.network7) => {
+      test(robotParams, world, parseNetwork(Networks.network7), animationSpeedCoeff);
+    };
+
   });
 };
 

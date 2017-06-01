@@ -27,6 +27,8 @@ export function train(robotParams, world, fitness) {
 
   console.log(JSON.stringify(network.toJSON(), undefined, 2));
   console.log('Best Score: ', network.score);
+
+  return network;
 }
 
 function fitnessEvaluator(robotParams, world, fitness, genome) {
