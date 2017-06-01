@@ -21,3 +21,12 @@ export const speed = (robot, world) => {
   var penalty = Math.abs(1 - result[0]) + Math.abs(1 - result[1]);
   return -penalty;
 };
+
+// experimenting
+export const distance = (robot, world) => {
+    const { left, right } = robot.speed;
+    const speed = left + right;
+
+    const sensors = robot.readSensors(world);
+    return sensors[2] && speed > 0.05 ? 1 : 0
+};

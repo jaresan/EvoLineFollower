@@ -8,8 +8,8 @@ export function createNeat(fitnessFunction){
     ],
     mutationRate: 0.6,
     elitism: 5,
-    popsize: 100,
-    network: Architect.Perceptron(5, 3, 2)
+    popsize: 50,
+    network: Architect.Perceptron(5, 4, 2)
   });
 }
 
@@ -20,6 +20,7 @@ export function parseNetwork(json) {
 export function neatFromJSON(json) {
   return Network.fromJSON(json);
 }
+
 
 function fitness(genome){
   // >>>>>>> UNCLE SAM NEEDS YOU! <<<<<<<<<

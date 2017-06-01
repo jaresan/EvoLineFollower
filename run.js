@@ -12,7 +12,7 @@ export function train(robotParams, world, fitness) {
   const neuralNet = createNeat(fitnessEvaluator.bind(this, robotParams, world, fitness));
 
   let iteration = 0;
-  const maxIterations = 100;
+  const maxIterations = 50;
   let network;
   const scores = [];
   const scoreMap = {};
@@ -21,7 +21,7 @@ export function train(robotParams, world, fitness) {
 
     network = neuralNet.getFittest();
     scores.push(network.score);
-    console.log(scores);
+    console.log(network.score);
     scoreMap[network.score] = network;
   }
 

@@ -100,13 +100,14 @@ export default class Robot {
     if (Math.abs(leftSpeed - rightSpeed) >= 1.0e-6) {
       const r = this.wheelBase * (leftDelta + rightDelta) / (2 * (rightDelta - leftDelta));
       const wd = (rightDelta - leftDelta) / this.wheelBase;
-      newX = x + r * Math.sin(wd + this.rotation) - r * Math.sin(this.rotation);
-      newY = y - r * Math.cos(wd + this.rotation) + r * Math.cos(this.rotation);
+      // convert to radians (may wanna have a function for that)
+      newX = x + r * Math.sin( Math.PI/180 * (wd + this.rotation)) - r * Math.sin(Math.PI/180 * this.rotation);
+      newY = y - r * Math.cos( Math.PI/180 * (wd + this.rotation)) + r * Math.cos(Math.PI/180 * this.rotation);
 
       this.rotation = this.rotation + wd;
     } else {
-      newX = x + (leftDelta * Math.cos(this.rotation));
-      newY = y + (rightDelta * Math.sin(this.rotation));
+      newX = x + (leftDelta * Math.cos(Math.PI/180 * this.rotation));
+      newY = y + (rightDelta * Math.sin(Math.PI/180 * this.rotation));
     }
 
     this.position = {
@@ -123,7 +124,7 @@ export default class Robot {
     this.tick(world);
     fitnessValue += fitnessTicker();
     let iteration = 0;
-    const maxIterations = 10000;
+    const maxIterations = 100000;
     while (!this.stopped && iteration < maxIterations) {
       this.tick(world);
       fitnessValue += fitnessTicker();
