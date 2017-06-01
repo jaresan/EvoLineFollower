@@ -1,11 +1,5 @@
-import Robot from '../Robot';
 import World from '../World';
-
-window.Robot = Robot;
-window.a = new Robot();
-console.log(a);
-a.setSpeedCoeff(1, 1);
-
+import { run2 } from '../run';
 
 function getResizedImage(src, targetWidth) {
   return new Promise((resolve, reject) => {
@@ -48,15 +42,21 @@ function getResizedImage(src, targetWidth) {
   });
 }
 
-getResizedImage('/assets/track.png', 1000).then(img => {
-  console.log('--- Image loaded ---');
-  window.img = img;
-  window.world = new World(img, 1, 1);
-  window.moveRobot = (duration = 1, left, right) => {
-    if (left !== undefined && right !== undefined) {
-      a.setSpeedCoeff(left, right);
-    }
-    a.move(duration);
-    console.log(`Position: ${JSON.stringify(a.position)}, rotation: ${a.rotation}`);
-  };
-});
+window.runApp = () => {
+  getResizedImage('/assets/track.png', 1000).then(img => {
+    console.log('--- Image loaded ---');
+    window.img = img;
+    const world = new World(img, 1, 1);
+    window.world = world;
+    run2(world);
+//   window.moveRobot = (duration = 1, left, right) => {
+//     if (left !== undefined && right !== undefined) {
+//       a.setSpeedCoeff(left, right);
+//     }
+//     a.move(duration);
+//     console.log(`Position: ${JSON.stringify(a.position)}, rotation: ${a.rotation}`);
+//   };
+  });
+};
+
+runApp();

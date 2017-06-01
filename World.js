@@ -34,7 +34,7 @@ export default class World {
     console.log('--- World loaded ---');
   }
 
-  drawWorld(scale) {
+  drawWorld(scale = 1) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
@@ -67,15 +67,16 @@ export default class World {
    * @param x X coord in real world in metres.
    * @param y Y coord in real world in metres.
    */
-  convertWorldCoordsToFieldCoords(x, y) {
+  convertWorldCoordsToFieldCoords(x, y, radius) {
     x = x * Settings.PIXELS_PER_M;
     y = y * Settings.PIXELS_PER_M;
+    radius = radius * Settings.PIXELS_PER_M;
 
-    if (y >= this.field[0].length || x >= this.field.length) {
-      throw new Error('X and Y coordinates are out of the bounds of the world');
-    }
+    // if (y >= this.field[0].length || x >= this.field.length) {
+    //   throw new Error('X and Y coordinates are out of the bounds of the world');
+    // }
 
-    return { x, y }
+    return { x, y, radius }
   }
 
 
@@ -88,14 +89,16 @@ export default class World {
    * @returns {boolean}
    */
   canSeeLine(x, y, radius) {
-    let { x: newX, y: newY } = this.convertWorldCoordsToFieldCoords(x, y);
+    let { x: newX, y: newY, radius: newRadius } = this.convertWorldCoordsToFieldCoords(x, y, radius);
     newX = Math.round(newX);
     newY = Math.round(newY);
 
     let lineSeen = false;
-    for (let i = 0; i <= radius; i++) {
-      for (let j = 0; j <= radius; j++) {
-        lineSeen = this.field[newX + j][newY + i] || lineSeen;
+    for (let i = 0; i <= newRadius; i++) {
+      for (let j = 0; j <= newRadius; j++) {
+        if (newX + j < this.field.length && newY + i < this.field[0].length) {
+          lineSeen = this.field[newX + j][newY + i] || lineSeen;
+        }
       }
     }
 

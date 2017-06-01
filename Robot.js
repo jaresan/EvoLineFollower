@@ -9,7 +9,7 @@ const leftServoCoeff = 1;
 const rightServoCoeff = -1;
 const maxSpeedMPerS = 0.01;
 const sensorInterval = 0.005;  // Interval between each sensor reading in milliseconds
-const positionPrecision = 5;
+const positionPrecision = 9;
 
 export function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neuralAbsoluteMax) {
   const mapToMin = -1;
@@ -36,7 +36,7 @@ const initialState = {
     [0.1, -0.05]
   ],
   sensorRadius: 0.01, // Half of the square side of the sensor (to know how much the sensor can see)
-  behaviour: {
+  behavior: {
     neuralNet: {
       activate: () => [1,1]
     },
@@ -56,15 +56,15 @@ export default class Robot {
   }
 
   get stopped() {
-    return this.leftWheel === this.rightWheel === servoStop;
+    return this.leftWheel === this.rightWheel && this.rightWheel === servoStop;
   }
 
-  constructor({x = 0, y = 0, rotation, wheelBase, sensorDeltas, behaviour} = initialState) {
+  constructor({x = 0, y = 0, rotation, wheelBase, sensorDeltas, behavior} = initialState) {
     this.wheelBase = wheelBase;
     this.sensorDeltas = sensorDeltas;
     this.position = { x, y };
     this.rotation = rotation;
-    this.behaviour = behaviour;
+    this.behavior = behavior;
 
     for (let key in initialState) {
       if (this[key] === undefined){
@@ -74,7 +74,7 @@ export default class Robot {
   }
 
   getServoSpeedsForSensorInput(sensors) {
-    const { absoluteMin, absoluteMax, neuralNet } = this.behaviour;
+    const { absoluteMin, absoluteMax, neuralNet } = this.behavior;
     const neuralOutput = neuralNet.activate(sensors);
 
     return translateNeuralToSpeedCoeff(neuralOutput, absoluteMin, absoluteMax)
@@ -111,8 +111,8 @@ export default class Robot {
 
   updateState(world) {
     const sensors = this.readSensors(world);
-    if (sensors.every(s => s === Sensors.blank)) {
-      stop();
+    if (sensors.every(s => !s)) {
+      this.stop();
     } else {
       const speeds = this.getServoSpeedsForSensorInput(sensors);
       this.setSpeedCoeff(speeds[0], speeds[1]);
@@ -153,9 +153,15 @@ export default class Robot {
 
   runUntilStop(world, fitnessTicker = () => 0) {
     let fitnessValue = 0;
-    while (!this.stopped) {
+
+    this.tick(world);
+    fitnessValue += fitnessTicker();
+    let iteration = 0;
+    const maxIterations = 100000;
+    while (!this.stopped && iteration < maxIterations) {
       this.tick(world);
-      fitnessValue += fitnessTicker(this);
+      fitnessValue += fitnessTicker();
+      iteration++;
     }
 
     return fitnessValue;

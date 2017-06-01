@@ -503,7 +503,7 @@ Node.prototype = {
    * Checks if this node is projecting to the given node
    */
    isProjectingTo: function(node){
-     for(conn in this.connections.out){
+     for(let conn in this.connections.out){
        conn = this.connections.out[conn];
        if(conn.to == node){
          return true;
@@ -516,7 +516,7 @@ Node.prototype = {
     * Checks if the given node is projecting to this node
     */
     isProjectedBy: function(node){
-      for(conn in this.connections.in){
+      for(let conn in this.connections.in){
         conn = this.connections.in[conn];
         if(conn.from == node){
           return true;
@@ -549,7 +549,7 @@ Node.fromJSON = function(json){
   node.type = json.type;
   node.mask = json.mask;
 
-  for(squash in Activation){
+  for(let squash in Activation){
     if(Activation[squash].name == json.squash){
       node.squash = Activation[squash];
       break;
@@ -837,7 +837,7 @@ Group.prototype = {
         for(var j = 0; j < target.nodes.length; j++){
           this.nodes[i].disconnect(target.nodes[j], twosided);
 
-          for(index in this.connections.out){
+          for(let index in this.connections.out){
             var conn = this.connections.out[index];
 
             if(conn.from == this.nodes[i] && conn.to == target.nodes[j]){
@@ -847,7 +847,7 @@ Group.prototype = {
           }
 
           if(twosided){
-            for(index in this.connections.in){
+            for(let index in this.connections.in){
               var conn = this.connections.in[index];
 
               if(conn.from == target.nodes[j] && conn.to == this.nodes[i]){
@@ -862,7 +862,7 @@ Group.prototype = {
       for(var i = 0; i < this.nodes.length; i++){
         var connection = this.nodes[i].disconnect(target, twosided);
 
-        for(index in this.connections.out){
+        for(let index in this.connections.out){
           var conn = this.connections.out[index];
 
           if(conn.from == this.nodes[i] && conn.to == target){
@@ -872,7 +872,7 @@ Group.prototype = {
         }
 
         if(twosided){
-          for(index in this.connections.in){
+          for(let index in this.connections.in){
             var conn = this.connections.in[index];
 
             if(conn.from == target && conn.to == this.nodes[i]){
@@ -1014,7 +1014,7 @@ Layer.prototype = {
         for(var j = 0; j < target.nodes.length; j++){
           this.nodes[i].disconnect(target.nodes[j], twosided);
 
-          for(index in this.connections.out){
+          for(let index in this.connections.out){
             var conn = this.connections.out[index];
 
             if(conn.from == this.nodes[i] && conn.to == target.nodes[j]){
@@ -1024,7 +1024,7 @@ Layer.prototype = {
           }
 
           if(twosided){
-            for(index in this.connections.in){
+            for(let index in this.connections.in){
               var conn = this.connections.in[index];
 
               if(conn.from == target.nodes[j] && conn.to == this.nodes[i]){
@@ -1039,7 +1039,7 @@ Layer.prototype = {
       for(var i = 0; i < this.nodes.length; i++){
         var connection = this.nodes[i].disconnect(target, twosided);
 
-        for(index in this.connections.out){
+        for(let index in this.connections.out){
           var conn = this.connections.out[index];
 
           if(conn.from == this.nodes[i] && conn.to == target){
@@ -1049,7 +1049,7 @@ Layer.prototype = {
         }
 
         if(twosided){
-          for(index in this.connections.in){
+          for(let index in this.connections.in){
             var conn = this.connections.in[index];
 
             if(conn.from == target && conn.to == this.nodes[i]){
@@ -1266,7 +1266,7 @@ Network.prototype = {
   activate: function(input, training){
     var output = [];
     // Activate nodes chronologically
-    for(node in this.nodes){
+    for(let node in this.nodes){
       if(this.nodes[node].type == 'input'){
         this.nodes[node].activate(input[node]);
       } else if (this.nodes[node].type == 'output'){
@@ -1288,7 +1288,7 @@ Network.prototype = {
     target.reverse();
 
     // Propagate nodes from end to start
-    for(node in this.nodes){
+    for(let node in this.nodes){
       switch(this.nodes[node].type){
         case('hidden'):
           this.nodes[node].propagate(rate);
@@ -1337,7 +1337,7 @@ Network.prototype = {
     // Delete the connection in the network's connection array
     var connections = from == to ? this.selfconns : this.connections;
 
-    for(conn in connections){
+    for(let conn in connections){
       var connection = connections[conn];
       if(connection.from == from && connection.to == to){
         if(connection.gater != null) this.ungate(connection);
@@ -1519,7 +1519,7 @@ Network.prototype = {
         // List of possible connections that can be removed
         var possible = [];
 
-        for(conn in this.connections){
+        for(let conn in this.connections){
           conn = this.connections[conn];
           // Check if it is not disabling a node
           if(conn.from.connections.out.length > 1 && conn.to.connections.in.length > 1 && this.nodes.indexOf(conn.to) > this.nodes.indexOf(conn.from)){
@@ -1646,7 +1646,7 @@ Network.prototype = {
         // List of possible connections that can be removed
         var possible = [];
 
-        for(conn in this.connections){
+        for(let conn in this.connections){
           conn = this.connections[conn];
           // Check if it is not disabling a node
           if(conn.from.connections.out.length > 1 && conn.to.connections.in.length > 1 && this.nodes.indexOf(conn.from) > this.nodes.indexOf(conn.to)){
@@ -1857,7 +1857,7 @@ Network.prototype = {
        ]
      };
 
-     for(index in this.nodes){
+     for(let index in this.nodes){
        var node = this.nodes[index];
 
        if(node.type == 'input'){
@@ -1885,7 +1885,7 @@ Network.prototype = {
      }
 
      var connections = this.connections.concat(this.selfconns);
-     for(connection in connections){
+     for(let connection in connections){
        connection = connections[connection];
        if(connection.gater == null){
          json.links.push({
@@ -1935,7 +1935,7 @@ Network.prototype = {
         dropout: this.dropout
       };
 
-      for(index in this.nodes){
+      for(let index in this.nodes){
         var node = this.nodes[index];
         var tojson = node.toJSON();
         tojson.index = index;
@@ -1951,7 +1951,7 @@ Network.prototype = {
         }
       }
 
-      for(conn in this.connections){
+      for(let conn in this.connections){
         var conn = this.connections[conn];
         var tojson = conn.toJSON();
         tojson.from = this.nodes.indexOf(conn.from);
@@ -2058,11 +2058,11 @@ Network.prototype = {
    network.nodes = [];
    network.connections = [];
 
-   for(node in json.nodes){
+   for(let node in json.nodes){
      network.nodes.push(Node.fromJSON(json.nodes[node]));
    }
 
-   for(conn in json.connections){
+   for(let conn in json.connections){
      var conn = json.connections[conn];
 
      var connection = network.connect(network.nodes[conn.from], network.nodes[conn.to])[0];
@@ -2090,7 +2090,7 @@ Network.prototype = {
    }
 
    // Redirect all connections from network2 input to network1 output
-   for(conn in network2.connections){
+   for(let conn in network2.connections){
      conn = network2.connections[conn];
      if(conn.from.type == 'input'){
        var index = network2.nodes.indexOf(conn.from);
@@ -2186,7 +2186,7 @@ Network.prototype = {
    }
 
    // Clear the node connections, make a copy
-   for(node in offspring.nodes){
+   for(let node in offspring.nodes){
      offspring.nodes[node] = Node.fromJSON(offspring.nodes[node].toJSON());
    }
 
@@ -2195,7 +2195,7 @@ Network.prototype = {
    var n2conns = {};
 
    var n1connections = network1.connections.concat(network1.selfconns);
-   for(conn in n1connections){
+   for(let conn in n1connections){
      var conn = n1connections[conn];
      var data = {
        weight: conn.weight,
@@ -2215,7 +2215,7 @@ Network.prototype = {
    }
 
    var n2connections = network2.connections.concat(network2.selfconns);
-   for(conn in n2connections){
+   for(let conn in n2connections){
      var conn = n2connections[conn];
      var data = {
        weight: conn.weight,
@@ -2247,23 +2247,23 @@ Network.prototype = {
 
    // Create a list of conn genes for the offspring
    var connections = [];
-   for(conn in commongenes){
+   for(let conn in commongenes){
      var conn = Math.random() >= 0.5 ? commongenes[conn][0] : commongenes[conn][1];
      connections.push(conn);
    }
 
    // Now add conn genes from the fittest parent (or both)
    if(score1 == score2){
-     for(conn in n1conns) connections.push(n1conns[conn]);
-     for(conn in n2conns) connections.push(n2conns[conn]);
+     for(let conn in n1conns) connections.push(n1conns[conn]);
+     for(let conn in n2conns) connections.push(n2conns[conn]);
    } else if(score1 > score2){
-     for(conn in n1conns) connections.push(n1conns[conn]);
+     for(let conn in n1conns) connections.push(n1conns[conn]);
    } else {
-     for(conn in n2conns) connections.push(n2conns[conn]);
+     for(let conn in n2conns) connections.push(n2conns[conn]);
    }
 
    // Add common conn genes uniformly
-   for(conn in connections){
+   for(let conn in connections){
      var connData = connections[conn];
      if(connData.to < size && connData.from < size){
        var from = offspring.nodes[connData.from];
@@ -2308,7 +2308,7 @@ var Architect = {
     // Transform all groups into nodes
     var nodes = [];
 
-    for(item in list){
+    for(let item in list){
       if(list[item] instanceof Group){
         for(var node in list[item].nodes){
           nodes.push(list[item].nodes[node]);
@@ -2784,8 +2784,8 @@ Neat.prototype = {
    * Breeds two parents into an offspring, population MUST be surted
    */
    getOffspring: function(){
-     parent1 = this.getParent();
-     parent2 = this.getParent();
+     let parent1 = this.getParent();
+     let parent2 = this.getParent();
 
      if(this.equal == true){
        parent1.score = 0;
@@ -2800,7 +2800,7 @@ Neat.prototype = {
    * Mutates the given (or current) population
    */
   mutate: function(){
-    for(genome in this.population){
+    for(let genome in this.population){
       if(Math.random() <= this.mutationRate){
         for(var i = 0; i < this.mutationAmount; i++){
           var mutationMethod = this.mutation[Math.floor(Math.random() * this.mutation.length)];
@@ -2814,7 +2814,7 @@ Neat.prototype = {
    * Evaluates the current population
    */
   evaluate: function(){
-    for(genome in this.population){
+    for(let genome in this.population){
       var score = this.fitness(this.population[genome]);
       this.population[genome].score = score;
     }
@@ -2851,7 +2851,7 @@ Neat.prototype = {
      }
 
      var score = 0;
-     for(genome in this.population){
+     for(let genome in this.population){
        score += this.population[genome].score;
      }
 
