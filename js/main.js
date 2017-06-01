@@ -95,7 +95,13 @@ window.runApp = () => {
     };
 
     window.test = (network = Networks.network7) => {
-      test(robotParams, world, parseNetwork(Networks.network7), animationSpeedCoeff);
+      const canvas = document.body.getElementsByTagName('canvas')[0];
+      if (canvas) {
+        document.body.removeChild(canvas);
+      }
+
+      test(robotParams, world, parseNetwork(network), animationSpeedCoeff);
+      window.animateRobot();
     };
 
   });
