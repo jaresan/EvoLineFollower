@@ -95,7 +95,6 @@ class Robot {
 
   move(moveDuration) {
     const {x, y} = this.position;
-    console.log(this.speed);
     const {left: leftSpeed, right: rightSpeed} = this.speed;
     const leftDelta = moveDuration * leftSpeed;
     const rightDelta = moveDuration * rightSpeed;
