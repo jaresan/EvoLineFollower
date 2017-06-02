@@ -43,7 +43,7 @@ function train(robotParams, world, evolutionParams, logger) {
 
 function fitnessEvaluator(robotParams, world, fitness, genome) {
   const robot = new Robot(robotParams);
-  robot.behavior.neuralNet = parseNetwork(Networks.test);
+  robot.behavior.neuralNet = genome;
   return robot.runUntilStop(world, fitness.bind(this, robot, world));
 }
 
