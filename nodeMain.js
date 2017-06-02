@@ -1,7 +1,7 @@
 const World = require('./World');
 const { train } = require('./run');
 const Params = require('./params');
-const sharp = require('Sharp');
+const sharp = require('sharp');
 const fs = require('fs');
 
 const imagePath = './assets/track.png';
