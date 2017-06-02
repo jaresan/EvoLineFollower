@@ -23,7 +23,7 @@ class Robot {
     // Signifies instant left/right wheel speed
     return {
       left: this.leftServoCoeff * ((this.leftWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed,
-      right: ((this.rightWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed
+      right: this.rightServoCoeff * ((this.rightWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed
     }
   }
 
