@@ -1,5 +1,5 @@
-import * as Settings from './constants/WorldSettings';
-import Robot from './Robot';
+const Settings = require('./constants/WorldSettings');
+const Robot = require('./Robot');
 
 function drawRobot(ctx, robot, world) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -44,7 +44,7 @@ function drawRobot(ctx, robot, world) {
   ctx.fill();
 }
 
-export function animate(robotParams, world, speedCoeff) {
+function animate(robotParams, world, speedCoeff) {
   const robot = new Robot(robotParams);
   const wrapper = document.createElement("div");
   wrapper.setAttribute("id","canvasWrapper");
@@ -73,3 +73,5 @@ export function animate(robotParams, world, speedCoeff) {
     drawRobot(ctx, robot, world);
   },10);
 }
+
+module.exports = { animate };

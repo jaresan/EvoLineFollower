@@ -1,13 +1,13 @@
-import { createNeat } from './NeuralController';
-import { animate } from './animateRobot';
-import Robot from './Robot';
+const { createNeat } = require('./NeuralController');
+const { animate } = require('./animateRobot');
+const Robot = require('./Robot');
 
-export function test(robotParams, world, network, speedCoeff) {
+function test(robotParams, world, network, speedCoeff) {
   robotParams.behavior.neuralNet = network;
   window.animateRobot = animate.bind(this, robotParams, world, speedCoeff);
 }
 
-export function train(robotParams, world, fitness) {
+function train(robotParams, world, fitness) {
   console.log('--- Evolution started! ---');
   const neuralNet = createNeat(fitnessEvaluator.bind(this, robotParams, world, fitness));
 
@@ -36,3 +36,5 @@ function fitnessEvaluator(robotParams, world, fitness, genome) {
   robot.behavior.neuralNet = genome;
   return robot.runUntilStop(world, fitness.bind(this, robot, world));
 }
+
+module.exports = { test, train };

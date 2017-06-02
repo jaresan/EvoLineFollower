@@ -1,6 +1,6 @@
-import { Neat, Methods, Architect, Network } from './NEAT/libs/neataptic';
+const { Neat, Methods, Architect, Network } = require('./NEAT/libs/neataptic');
 
-export function createNeat(fitnessFunction){
+function createNeat(fitnessFunction){
   return new Neat(5, 2, fitnessFunction, {
     mutation: [
       Methods.Mutation.MOD_WEIGHT,
@@ -13,22 +13,12 @@ export function createNeat(fitnessFunction){
   });
 }
 
-export function parseNetwork(json) {
+function parseNetwork(json) {
   return Network.fromJSON(json);
 }
 
-export function neatFromJSON(json) {
+function neatFromJSON(json) {
   return Network.fromJSON(json);
 }
 
-
-function fitness(genome){
-  // >>>>>>> UNCLE SAM NEEDS YOU! <<<<<<<<<
-  // var fitness = Simulator.simulate(genome); // or whatever...
-  // return fitness;
-
-  // dummy fitness (network learns to ouput [1,1] to any input (wow! such useful! very complicated! so cool!)
-  const result = genome.activate([0,1,0,0,1]);
-  const penalty = Math.abs(1 - result[0]) + Math.abs(1 - result[1]);
-  return -penalty;
-}
+module.exports = { createNeat, parseNetwork, neatFromJSON };

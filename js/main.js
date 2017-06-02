@@ -1,8 +1,9 @@
-import World from '../World';
-import { train, test } from '../run';
-import * as Fitness from '../constants/fitnessFunctions';
-import { parseNetwork } from '../NeuralController';
-import * as Networks from '../networkResults/networks';
+const World = require('../World');
+const { train, test } = require('../run');
+const Fitness = require('../constants/fitnessFunctions');
+const { parseNetwork } = require('../NeuralController');
+const Networks = require('../networkResults/networks');
+const Sharp = require('Sharp');
 
 const servoStop = 1500;
 const robotParams = {
@@ -84,27 +85,29 @@ function getResizedImage(src, targetWidth) {
   });
 }
 
-window.runApp = () => {
-  getResizedImage('/assets/track.png', 1000).then(img => {
-    console.log('--- Image loaded ---');
-    const world = new World(img, 1, 1);
-    // run(robotParams, world);
+if (typeof window !== 'undefined') {
+  window.runApp = () => {
+    getResizedImage('/assets/track.png', 1000).then(img => {
+      console.log('--- Image loaded ---');
+      const world = new World(img, 1, 1);
+      // run(robotParams, world);
 
-    window.train = (fitness = Fitness.distance) => {
-      return train(robotParams, world, fitness)
-    };
+      window.train = (fitness = Fitness.distance) => {
+        return train(robotParams, world, fitness)
+      };
 
-    window.test = (network = Networks.networkManual) => {
-      const canvas = document.getElementById('canvasWrapper');
-      if (canvas) {
-        canvas.remove();
-      }
+      window.test = (network = Networks.networkManual) => {
+        const canvas = document.getElementById('canvasWrapper');
+        if (canvas) {
+          canvas.remove();
+        }
 
-      test(robotParams, world, parseNetwork(network), animationSpeedCoeff);
-      window.animateRobot();
-    };
+        test(robotParams, world, parseNetwork(network), animationSpeedCoeff);
+        window.animateRobot();
+      };
 
-  });
-};
+    });
+  };
 
-runApp();
+  runApp();
+}

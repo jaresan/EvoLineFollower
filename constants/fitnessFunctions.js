@@ -1,10 +1,10 @@
-export const speedAndMiddleOnLine = (robot, world) => {
+const speedAndMiddleOnLine = (robot, world) => {
   const { left, right } = robot.speed;
   const val = Math.abs(left + right);
   return robot.readSensors(world)[2] ? val : 0;
 };
 
-export const middleOnLine = (robot, world) => {
+const middleOnLine = (robot, world) => {
   const { left, right } = robot.speed;
   const speed = Math.abs(left + right);
   const sensors = robot.readSensors(world);
@@ -15,7 +15,7 @@ export const middleOnLine = (robot, world) => {
   return speed > 0.005 ? val - penalty : -penalty;
 };
 
-export const speed = (robot, world) => {
+const speed = (robot, world) => {
   const { left, right } = robot.speed;
   var result = robot.behavior.neuralNet.activate([0,1,0,0,1]);
   var penalty = Math.abs(1 - result[0]) + Math.abs(1 - result[1]);
@@ -23,7 +23,7 @@ export const speed = (robot, world) => {
 };
 
 // experimenting
-export const distance = (robot, world) => {
+const distance = (robot, world) => {
     const { left, right } = robot.speed;
     const speed = left + right;
 
@@ -34,3 +34,5 @@ export const distance = (robot, world) => {
     let score = -penalty + reward;
     return score;
 };
+
+module.exports = { speed, speedAndMiddleOnLine, middleOnLine, distance };

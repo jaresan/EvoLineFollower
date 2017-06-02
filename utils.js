@@ -1,4 +1,4 @@
-export function multiplyMatrices(m1, m2) {
+function multiplyMatrices(m1, m2) {
   let result = [];
   for (let i = 0; i < m1.length; i++) {
     result[i] = [];
@@ -13,12 +13,12 @@ export function multiplyMatrices(m1, m2) {
   return result;
 }
 
-export function roundWithPrecision(number, precision = 0) {
+function roundWithPrecision(number, precision = 0) {
   const exp = Math.pow(10, precision);
   return Math.round(number * exp) / exp;
 }
 
-export function rotatePoint(cx, cy, x, y, angle) {
+function rotatePoint(cx, cy, x, y, angle) {
   const radians = (Math.PI / 180) * angle,
     cos = Math.cos(radians),
     sin = Math.sin(radians),
@@ -26,3 +26,5 @@ export function rotatePoint(cx, cy, x, y, angle) {
     ny = (cos * (y - cy)) + (sin * (x - cx)) + cy; // myslim ze ta znamenka maji byt takhle
   return [nx, ny];
 }
+
+module.exports = { multiplyMatrices, roundWithPrecision, rotatePoint };

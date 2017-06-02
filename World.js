@@ -1,6 +1,6 @@
-import * as Settings from './constants/WorldSettings';
+const Settings = require('./constants/WorldSettings');
 
-export default class World {
+class World {
 
   /**
    *
@@ -110,3 +110,5 @@ export default class World {
   }
 
 }
+
+module.exports = World;

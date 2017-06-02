@@ -1,11 +1,9 @@
-import * as Settings from './constants/WorldSettings';
-import * as Sensors from './constants/sensors';
-import { multiplyMatrices, roundWithPrecision, rotatePoint } from './utils';
+const { multiplyMatrices, roundWithPrecision, rotatePoint } = require('./utils');
 
 // FIXME: Add some constants to constructor (e.g. max speed, sensor interval)
 const positionPrecision = 9;
 
-export function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neuralAbsoluteMax) {
+function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neuralAbsoluteMax) {
   const mapToMin = -1;
   const mapToMax = 1;
   const spread = mapToMax - mapToMin;
@@ -16,7 +14,7 @@ export function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neu
   });
 }
 
-export default class Robot {
+class Robot {
   get speed() {
     // Signifies instant left/right wheel speed
     return {
@@ -139,3 +137,5 @@ export default class Robot {
   }
 
 }
+
+module.exports = Robot;
