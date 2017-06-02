@@ -95,7 +95,6 @@ class Robot {
     const {left: leftSpeed, right: rightSpeed} = this.speed;
     const leftDelta = moveDuration * leftSpeed;
     const rightDelta = moveDuration * rightSpeed;
-    console.log(this.speed);
 
     let newX, newY;
     if (Math.abs(leftSpeed - rightSpeed) >= 1.0e-6) {
