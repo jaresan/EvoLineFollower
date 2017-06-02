@@ -59,7 +59,7 @@ if (typeof window !== 'undefined') {
         return train(Params.robotParams, world, Params.evolutionParams)
       };
 
-      window.test = (network = Networks.netGood) => {
+      window.test = (network = Networks.test2) => {
         const canvas = document.getElementById('canvasWrapper');
         if (canvas) {
           canvas.remove();

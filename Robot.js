@@ -89,12 +89,12 @@ class Robot {
   tick(world, sensorIntervalInS) {
     this.updateState(world);
     this.move(sensorIntervalInS || this.sensorInterval);
-    console.log(this.position);
   }
 
   move(moveDuration) {
     const {x, y} = this.position;
     const {left: leftSpeed, right: rightSpeed} = this.speed;
+    console.log(this.leftWheel, this.rightWheel);
     const leftDelta = moveDuration * leftSpeed;
     const rightDelta = moveDuration * rightSpeed;
 
