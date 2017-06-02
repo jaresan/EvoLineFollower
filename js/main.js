@@ -94,7 +94,7 @@ window.runApp = () => {
       return train(robotParams, world, fitness)
     };
 
-    window.test = (network = Networks.network7) => {
+    window.test = (network = Networks.networkManual) => {
       const canvas = document.body.getElementsByTagName('canvas')[0];
       if (canvas) {
         document.body.removeChild(canvas);
