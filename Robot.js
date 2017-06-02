@@ -23,7 +23,7 @@ class Robot {
     // Signifies instant left/right wheel speed
     return {
       left: this.leftServoCoeff * ((this.leftWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed,
-      right: this.rightServoCoeff * ((this.rightWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed
+      right: ((this.rightWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed
     }
   }
 
@@ -79,9 +79,12 @@ class Robot {
     if (this.sensorTimeout < 0 && sensors.every(s => !s)) {
       this.stop();
     } else {
-      this.sensorTimeout = this.noSensorStopTimeout;
       const speeds = this.getServoSpeedsForSensorInput(sensors);
       this.setSpeedCoeff(speeds[0], speeds[1]);
+    }
+
+    if (sensors.some(s => s)) {
+      this.sensorTimeout = this.noSensorStopTimeout;
     }
   }
 
