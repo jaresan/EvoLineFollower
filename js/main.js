@@ -11,7 +11,7 @@ const robotParams = {
     y: 0.875,
   },
   sensorInterval: 0.02,
-  maxSpeed: 0.5, // proc byla puvodne mensi nez startSpeed? (0.05 < 0.3)
+  maxSpeed: 0.3, // proc byla puvodne mensi nez startSpeed? (0.05 < 0.3)
   startSpeed: [0.3, 0.3],
   servoStop: servoStop,
   servoSpeedSpread: 200,
@@ -20,13 +20,13 @@ const robotParams = {
   rotation: 180, // trying other way
   wheelBase: 0.1,
   sensorDeltas: [ // Sensor position in relation to the center of the wheel axel -> [deltaX, deltaY] in meters
-    [0.1, 0.05],
-    [0.1, 0.02],
-    [0.1, 0],
-    [0.1, -0.02],
-    [0.1, -0.05]
+    [0.07, 0.05],
+    [0.07, 0.02],
+    [0.07, 0],
+    [0.07, -0.02],
+    [0.07, -0.05]
   ],
-  sensorRadius: 0.005, // Half of the square side of the sensor (to know how much the sensor can see)
+  sensorRadius: 0.01, // Half of the square side of the sensor (to know how much the sensor can see)
   behavior: {
     neuralNet: {
       activate: () => [-100, -100]

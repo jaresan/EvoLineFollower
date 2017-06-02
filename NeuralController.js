@@ -6,9 +6,9 @@ export function createNeat(fitnessFunction){
       Methods.Mutation.MOD_WEIGHT,
       Methods.Mutation.MOD_BIAS
     ],
-    mutationRate: 0.6,
+    mutationRate: 0.8,
     elitism: 5,
-    popsize: 50,
+    popsize: 500,
     network: Architect.Perceptron(5, 4, 2)
   });
 }
