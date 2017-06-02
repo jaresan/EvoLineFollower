@@ -35,7 +35,7 @@ const evolutionParams = {
     mutationRate: 0.8,
     populationSize: 100,
     hiddenNeurons: 3,
-    maxIterations: 200,
+    maxIterations: 20,
     fitness: Fitness.distance
 };
 

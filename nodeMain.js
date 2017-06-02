@@ -1,9 +1,10 @@
-const World = require('../World');
-const { train } = require('../run');
-const Params = require('../params');
+const World = require('./World');
+const { train } = require('./run');
+const Params = require('./params');
 const sharp = require('Sharp');
+const fs = require('fs');
 
-const imagePath = '../assets/track.png';
+const imagePath = './assets/track.png';
 
 function startNodeApp() {
   return new Promise((succ, err) => {
@@ -39,11 +40,19 @@ function startNodeApp() {
   });
 }
 
+const logger = (net) => {
+    fs.appendFile('fitnessResults/' + Params.evolutionParams.fitness.name + '.txt',
+      `\n${Math.round(net.score)}: ${JSON.stringify(net.toJSON())}\n`,
+      function (err) {
+        if (err) throw err;
+        console.log('Saved neural net!');
+    });
+};
 
-const trainNet = (fitness = Fitness.distance) => {
+const trainNet = () => {
   startNodeApp().then(img => {
     const world = new World(img, 1, 1);
-    return train(Params.robotParams, world, Params.evolutionParams)
+    return train(Params.robotParams, world, Params.evolutionParams, logger)
   });
 };
 

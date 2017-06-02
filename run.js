@@ -7,7 +7,7 @@ function test(robotParams, world, network, speedCoeff) {
   window.animateRobot = animate.bind(this, robotParams, world, speedCoeff);
 }
 
-function train(robotParams, world, evolutionParams) {
+function train(robotParams, world, evolutionParams, logger) {
   console.log('--- Evolution started! ---');
   const neuralNet = createNeat(
       fitnessEvaluator.bind(this, robotParams, world, evolutionParams.fitness),
@@ -23,6 +23,10 @@ function train(robotParams, world, evolutionParams) {
     neuralNet.evolve();
 
     network = neuralNet.getFittest();
+    if (typeof logger === 'function') {
+      logger(network);
+    }
+
     scores.push(network.score);
     console.log(JSON.stringify(network.toJSON(), undefined, 2));
     console.log(iteration + ": " + network.score);

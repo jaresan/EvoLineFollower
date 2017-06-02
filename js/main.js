@@ -2,7 +2,7 @@ const World = require('../World');
 const { train, test } = require('../run');
 const { parseNetwork } = require('../NeuralController');
 const Networks = require('../networkResults/networks');
-const Params = require('../params')
+const Params = require('../params');
 
 const animationSpeedCoeff = 10;
 
