@@ -11,7 +11,7 @@ const robotParams = {
     y: 0.875,
   },
   sensorInterval: 0.02,
-  maxSpeed: 0.05,
+  maxSpeed: 0.5, // proc byla puvodne mensi nez startSpeed? (0.05 < 0.3)
   startSpeed: [0.3, 0.3],
   servoStop: servoStop,
   servoSpeedSpread: 200,
