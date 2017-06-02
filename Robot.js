@@ -125,7 +125,7 @@ class Robot {
     this.tick(world);
     fitnessValue += fitnessTicker();
     let iteration = 0;
-    const maxIterations = 1000000;
+    const maxIterations = 10000;
     while (!this.stopped && iteration < maxIterations) {
       this.tick(world);
       fitnessValue += fitnessTicker();
