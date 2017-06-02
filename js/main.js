@@ -95,9 +95,9 @@ window.runApp = () => {
     };
 
     window.test = (network = Networks.networkManual) => {
-      const canvas = document.body.getElementsByTagName('canvas')[0];
+      const canvas = document.getElementById('canvasWrapper');
       if (canvas) {
-        document.body.removeChild(canvas);
+        canvas.remove();
       }
 
       test(robotParams, world, parseNetwork(network), animationSpeedCoeff);
