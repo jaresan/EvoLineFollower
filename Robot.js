@@ -95,6 +95,7 @@ class Robot {
 
   move(moveDuration) {
     const {x, y} = this.position;
+    console.log(this.speed);
     const {left: leftSpeed, right: rightSpeed} = this.speed;
     const leftDelta = moveDuration * leftSpeed;
     const rightDelta = moveDuration * rightSpeed;
@@ -127,7 +128,7 @@ class Robot {
     this.tick(world);
     fitnessValue += fitnessTicker();
     let iteration = 0;
-    const maxIterations = 1000000;
+    const maxIterations = 10000;
     while (!this.stopped && iteration < maxIterations) {
       this.tick(world);
       fitnessValue += fitnessTicker();
