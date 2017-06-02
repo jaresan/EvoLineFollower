@@ -4,7 +4,7 @@ const { parseNetwork } = require('../NeuralController');
 const Networks = require('../networkResults/networks');
 const Params = require('../params');
 
-const animationSpeedCoeff = 10;
+const animationSpeedCoeff = 50;
 
 const imagePath = '../assets/track.png';
 

@@ -68,7 +68,7 @@ function animate(robotParams, world, speedCoeff) {
   setInterval(() => {
     // world.drawWorld(1, ctx);
     for (let i = 0; i < speedCoeff; i++) {
-      robot.tick(world, robot.sensorInterval);
+      robot.tick(world);
     }
     drawRobot(ctx, robot, world);
   },10);

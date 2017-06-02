@@ -8,9 +8,13 @@ function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neuralAbso
   const mapToMax = 1;
   const spread = mapToMax - mapToMin;
   const neuralSpread = neuralAbsoluteMax - neuralAbsoluteMin;
+  let result;
 
   return neuralOutput.map(val => {
-    return mapToMin + (val - neuralAbsoluteMin) / neuralSpread * spread;
+    result = mapToMin + (val - neuralAbsoluteMin) / neuralSpread * spread;
+    result = Math.max(result, mapToMin);
+    result = Math.min(result, mapToMax);
+    return result;
   });
 }
 
@@ -94,9 +98,9 @@ class Robot {
   move(moveDuration) {
     const {x, y} = this.position;
     const {left: leftSpeed, right: rightSpeed} = this.speed;
-    console.log(this.leftWheel, this.rightWheel);
     const leftDelta = moveDuration * leftSpeed;
     const rightDelta = moveDuration * rightSpeed;
+    console.log(this.speed);
 
     let newX, newY;
     if (Math.abs(leftSpeed - rightSpeed) >= 1.0e-6) {
