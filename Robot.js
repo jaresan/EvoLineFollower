@@ -22,8 +22,8 @@ class Robot {
   get speed() {
     // Signifies instant left/right wheel speed
     return {
-      left: this.leftServoCoeff * ((this.leftWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed,
-      right: this.rightServoCoeff * ((this.rightWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed
+      left: ((this.leftWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed,
+      right: ((this.rightWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed
     }
   }
 
@@ -47,11 +47,6 @@ class Robot {
     const neuralOutput = neuralNet.activate(sensors);
 
     return translateNeuralToSpeedCoeff(neuralOutput, absoluteMin, absoluteMax)
-  }
-
-  setWheelPulses(leftSpeed, rightSpeed) {
-    this.leftWheel = this.servoStop + leftSpeed * this.leftServoCoeff;
-    this.rightWheel = this.servoStop + rightSpeed * this.rightServoCoeff;
   }
 
   /**
