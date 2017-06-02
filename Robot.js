@@ -34,7 +34,8 @@ class Robot {
       }
     }
 
-    this.setSpeedCoeff(params.startSpeed[0], params.startSpeed[1]);
+    this.sensorTimeout = this.noSensorStopTimeout;
+    this.setSpeedCoeff(params.startSpeedCoeff[0], params.startSpeedCoeff[1]);
   }
 
   getServoSpeedsForSensorInput(sensors) {
@@ -75,9 +76,11 @@ class Robot {
 
   updateState(world) {
     const sensors = this.readSensors(world);
-    if (sensors.every(s => !s)) {
+    this.sensorTimeout -= this.sensorInterval;
+    if (this.sensorTimeout < 0 && sensors.every(s => !s)) {
       this.stop();
     } else {
+      this.sensorTimeout = this.noSensorStopTimeout;
       const speeds = this.getServoSpeedsForSensorInput(sensors);
       this.setSpeedCoeff(speeds[0], speeds[1]);
     }
@@ -86,6 +89,7 @@ class Robot {
   tick(world, sensorIntervalInS) {
     this.updateState(world);
     this.move(sensorIntervalInS || this.sensorInterval);
+    console.log(this.position);
   }
 
   move(moveDuration) {

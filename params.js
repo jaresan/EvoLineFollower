@@ -5,9 +5,10 @@ const robotParams = {
         x: 0.50,
         y: 0.875,
     },
+    noSensorStopTimeout: 1, // When no sensors can see anything, stop after this time
     sensorInterval: 0.02,
-    maxSpeed: 0.3, // proc byla puvodne mensi nez startSpeed? (0.05 < 0.3)
-    startSpeed: [0.3, 0.3],
+    maxSpeed: 0.2, // proc byla puvodne mensi nez startSpeed? (0.05 < 0.3)
+    startSpeedCoeff: [0.3, 0.3],
     servoStop: 1500,
     servoSpeedSpread: 200,
     leftServoCoeff: 1,

@@ -44,8 +44,9 @@ const noReverse = (robot, world) => {
 
   const sensors = robot.readSensors(world);
   let penalty = sensors[2] ? 0 : 2;
-  penalty += speed < 0.03 ? 100 : 0;
-  let reward = sensors[2] && speed > 0.05 ? 10 * speed : 0;
+  penalty += speed < robot.maxSpeed / 10 ? 1 : 0;
+  penalty += speed < 0 ? 100 : 0;
+  let reward = sensors[2] && speed > robot.maxSpeed / 10 ? 10 * speed : 0;
   let score = -penalty + reward;
   return score;
 };

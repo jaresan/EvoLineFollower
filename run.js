@@ -1,6 +1,8 @@
 const { createNeat } = require('./NeuralController');
 const { animate } = require('./animateRobot');
 const Robot = require('./Robot');
+const Networks = require('./networkResults/networks');
+const { parseNetwork } = require('./NeuralController');
 
 function test(robotParams, world, network, speedCoeff) {
   robotParams.behavior.neuralNet = network;
@@ -41,7 +43,7 @@ function train(robotParams, world, evolutionParams, logger) {
 
 function fitnessEvaluator(robotParams, world, fitness, genome) {
   const robot = new Robot(robotParams);
-  robot.behavior.neuralNet = genome;
+  robot.behavior.neuralNet = parseNetwork(Networks.test);
   return robot.runUntilStop(world, fitness.bind(this, robot, world));
 }
 
