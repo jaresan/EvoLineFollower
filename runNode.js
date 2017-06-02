@@ -1,3 +1,3 @@
-const { trainNet } = require('nodeMain');
+const { trainNet } = require('./nodeMain');
 
 trainNet();
