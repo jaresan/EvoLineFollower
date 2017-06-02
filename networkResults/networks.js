@@ -648,4 +648,197 @@ const netGood = {
     "dropout": 0
 };
 
-module.exports = { networkManual, networkMaxLeft, netGood };
+const hajzlRobutek = {
+  nodes: [
+    {
+      bias: 0,
+      type: 'input',
+      squash: 'LOGISTIC',
+      mask: 1,
+      index: "0"
+    },
+    {
+      bias: 0,
+      type: 'input',
+      squash: 'LOGISTIC',
+      mask: 1,
+      index: "1"
+    },
+    {
+      bias: 0,
+      type: 'input',
+      squash: 'LOGISTIC',
+      mask: 1,
+      index: "2"
+    },
+    {
+      bias: 0,
+      type: 'input',
+      squash: 'LOGISTIC',
+      mask: 1,
+      index: "3"
+    },
+    {
+      bias: 0,
+      type: 'input',
+      squash: 'LOGISTIC',
+      mask: 1,
+      index: "4"
+    },
+    {
+      bias: -0.08224770994705032,
+      type: 'hidden',
+      squash: 'LOGISTIC',
+      mask: 1,
+      index: "5"
+    },
+    {
+      bias: -0.02103271093322108,
+      type: 'hidden',
+      squash: 'LOGISTIC',
+      mask: 1,
+      index: "6"
+    },
+    {
+      bias: 0.07183862471889829,
+      type: 'output',
+      squash: 'BIPOLAR',
+      mask: 1,
+      index: "7"
+    },
+    {
+      bias: 0.07183862471889829,
+      type: 'output',
+      squash: 'BIPOLAR',
+      mask: 1,
+      index: "8"
+    }
+  ],
+  connections: [
+    {
+      weight: 0.02657135393007759,
+      from: 0,
+      to: 5,
+      gater: null
+    },
+    {
+      weight: -0.040633574509031024,
+      from: 1,
+      to: 5,
+      gater: null
+    },
+    {
+      weight: -0.058827909795596156,
+      from: 0,
+      to: 6,
+      gater: null
+    },
+    {
+      weight: -0.06956634506663005,
+      from: 1,
+      to: 6,
+      gater: null
+    },
+    {
+      weight: -0.03977465502777662,
+      from: 2,
+      to: 6,
+      gater: null
+    },
+    {
+      weight: 0.05892745755764098,
+      from: 0,
+      to: 8,
+      gater: null
+    },
+    {
+      weight: 0.00982249964792152,
+      from: 3,
+      to: 6,
+      gater: null
+    },
+    {
+      weight: -0.040633574509031024,
+      from: 1,
+      to: 8,
+      gater: null
+    },
+    {
+      weight: 0.06381110598635684,
+      from: 4,
+      to: 6,
+      gater: null
+    },
+    {
+      weight: -0.02569406051894023,
+      from: 2,
+      to: 8,
+      gater: null
+    },
+    {
+      weight: 0.0010296345829703402,
+      from: 3,
+      to: 8,
+      gater: null
+    },
+    {
+      weight: 0.08435397609152737,
+      from: 4,
+      to: 8,
+      gater: null
+    },
+    {
+      weight: -0.0436399540284091,
+      from: 5,
+      to: 8,
+      gater: null
+    },
+    {
+      weight: -0.0023981271634402612,
+      from: 0,
+      to: 7,
+      gater: null
+    },
+    {
+      weight: -0.08043534635624755,
+      from: 1,
+      to: 7,
+      gater: null
+    },
+    {
+      weight: 0.013326549135662932,
+      from: 2,
+      to: 7,
+      gater: null
+    },
+    {
+      weight: 0.00982249964792152,
+      from: 3,
+      to: 7,
+      gater: null
+    },
+    {
+      weight: 0.047217551804534796,
+      from: 4,
+      to: 7,
+      gater: null
+    },
+    {
+      weight: -0.017135595200934522,
+      from: 5,
+      to: 7,
+      gater: null
+    },
+    {
+      weight: 0.002098899849626218,
+      from: 6,
+      to: 8,
+      gater: null
+    }
+  ],
+  input: 5,
+  output: 2,
+  dropout: 0
+};
+
+module.exports = { networkManual, networkMaxLeft, netGood, hajzlRobutek };

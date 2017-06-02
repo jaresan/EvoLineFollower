@@ -36,7 +36,7 @@ const evolutionParams = {
     populationSize: 100,
     hiddenNeurons: 3,
     maxIterations: 20,
-    fitness: Fitness.distance
+    fitness: Fitness.noReverse
 };
 
 module.exports = {robotParams, evolutionParams};

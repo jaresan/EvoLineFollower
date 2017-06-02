@@ -23,6 +23,7 @@ const speed = (robot, world) => {
 };
 
 // experimenting
+// The best one goes back and forth ....
 const distance = (robot, world) => {
     const { left, right } = robot.speed;
     const speed = left + right;
@@ -35,4 +36,18 @@ const distance = (robot, world) => {
     return score;
 };
 
-module.exports = { speed, speedAndMiddleOnLine, middleOnLine, distance };
+// experimenting
+// The best one goes back and forth ....
+const noReverse = (robot, world) => {
+  const { left, right } = robot.speed;
+  const speed = left + right;
+
+  const sensors = robot.readSensors(world);
+  let penalty = sensors[2] ? 0 : 2;
+  penalty += speed < 0.03 ? 100 : 0;
+  let reward = sensors[2] && speed > 0.05 ? 10 * speed : 0;
+  let score = -penalty + reward;
+  return score;
+};
+
+module.exports = { speed, speedAndMiddleOnLine, middleOnLine, distance, noReverse };
