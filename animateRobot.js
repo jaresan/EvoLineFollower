@@ -28,7 +28,7 @@ function drawRobot(ctx, robot, world) {
     // draw the rect on the transformed context
     // Note: after transforming [0,0] is visually [x,y]
     // so the rect needs to be offset accordingly when drawn
-    ctx.rect( -robot.wheelBase/2 * Settings.PIXELS_PER_M, -robot.wheelBase/2* Settings.PIXELS_PER_M, robot.wheelBase * Settings.PIXELS_PER_M, robot.wheelBase* Settings.PIXELS_PER_M);
+    ctx.rect( -robot.wheelBase/2 * Settings.PIXELS_PER_M, -robot.wheelBase/2* Settings.PIXELS_PER_M, 0.05 * Settings.PIXELS_PER_M, robot.wheelBase * Settings.PIXELS_PER_M);
 
     ctx.fillStyle="gold";
     ctx.fill();

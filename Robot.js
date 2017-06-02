@@ -22,8 +22,8 @@ class Robot {
   get speed() {
     // Signifies instant left/right wheel speed
     return {
-      left: ((this.leftWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed,
-      right: ((this.rightWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed
+      left: this.leftServoCoeff * ((this.leftWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed,
+      right: this.rightServoCoeff * ((this.rightWheel - this.servoStop) / this.servoSpeedSpread) * this.maxSpeed
     }
   }
 
@@ -124,7 +124,7 @@ class Robot {
     this.tick(world);
     fitnessValue += fitnessTicker();
     let iteration = 0;
-    const maxIterations = 10000;
+    const maxIterations = 1000000;
     while (!this.stopped && iteration < maxIterations) {
       this.tick(world);
       fitnessValue += fitnessTicker();
