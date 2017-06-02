@@ -97,7 +97,9 @@ class World {
     for (let i = 0; i <= newRadius; i++) {
       for (let j = 0; j <= newRadius; j++) {
         if (newX + j < this.field.length && newY + i < this.field[0].length) {
-          lineSeen = this.field[newX + j][newY + i] || lineSeen;
+          if (this.field[newX + j]) {
+            lineSeen = this.field[newX + j][newY + i] || lineSeen;
+          }
         }
       }
     }

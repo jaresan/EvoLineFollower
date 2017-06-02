@@ -37,9 +37,9 @@ function drawRobot(ctx, robot, world) {
     ctx.restore();
 
     sensors.forEach(coords => {
-    ctx.fillStyle = "rgba(10, 50, 200, 100)";
-    ctx.rect(coords.x, coords.y, 4, 4);
-  });
+      ctx.fillStyle = "rgba(10, 50, 200, 100)";
+      ctx.rect(coords.x, coords.y, 4, 4);
+    });
 
   ctx.fill();
 }
