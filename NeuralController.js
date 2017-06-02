@@ -1,15 +1,12 @@
 const { Neat, Methods, Architect, Network } = require('./NEAT/libs/neataptic');
 
-function createNeat(fitnessFunction){
+function createNeat(fitnessFunction, mutRate=0.8, pop=100, hiddenNeurons=3){
   return new Neat(5, 2, fitnessFunction, {
-    mutation: [
-      Methods.Mutation.MOD_WEIGHT,
-      Methods.Mutation.MOD_BIAS
-    ],
-    mutationRate: 0.8,
+    mutation: Methods.Mutation.FFW,
+    mutationRate: mutRate,
     elitism: 5,
-    popsize: 500,
-    network: Architect.Perceptron(5, 4, 2)
+    popsize: pop,
+    network: Architect.Perceptron(5, hiddenNeurons, 2)
   });
 }
 

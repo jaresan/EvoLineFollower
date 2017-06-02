@@ -1,41 +1,10 @@
 const World = require('../World');
 const { train, test } = require('../run');
-const Fitness = require('../constants/fitnessFunctions');
 const { parseNetwork } = require('../NeuralController');
 const Networks = require('../networkResults/networks');
-const Sharp = require('Sharp');
+//const Sharp = require('Sharp');
+const Params = require('../params')
 
-const servoStop = 1500;
-const robotParams = {
-  position: {
-    x: 0.50,
-    y: 0.875,
-  },
-  sensorInterval: 0.02,
-  maxSpeed: 0.3, // proc byla puvodne mensi nez startSpeed? (0.05 < 0.3)
-  startSpeed: [0.3, 0.3],
-  servoStop: servoStop,
-  servoSpeedSpread: 200,
-  leftServoCoeff: 1,
-  rightServoCoeff: -1,
-  rotation: 180, // trying other way
-  wheelBase: 0.1,
-  sensorDeltas: [ // Sensor position in relation to the center of the wheel axel -> [deltaX, deltaY] in meters
-    [0.07, 0.05],
-    [0.07, 0.02],
-    [0.07, 0],
-    [0.07, -0.02],
-    [0.07, -0.05]
-  ],
-  sensorRadius: 0.01, // Half of the square side of the sensor (to know how much the sensor can see)
-  behavior: {
-    neuralNet: {
-      activate: () => [-100, -100]
-    },
-    absoluteMin: -1,
-    absoluteMax: 1
-  }
-};
 
 const animationSpeedCoeff = 10;
 
@@ -92,17 +61,17 @@ if (typeof window !== 'undefined') {
       const world = new World(img, 1, 1);
       // run(robotParams, world);
 
-      window.train = (fitness = Fitness.distance) => {
-        return train(robotParams, world, fitness)
+      window.train = () => {
+        return train(Params.robotParams, world, Params.evolutionParams)
       };
 
-      window.test = (network = Networks.networkManual) => {
+      window.test = (network = Networks.netGood) => {
         const canvas = document.getElementById('canvasWrapper');
         if (canvas) {
           canvas.remove();
         }
 
-        test(robotParams, world, parseNetwork(network), animationSpeedCoeff);
+        test(Params.robotParams, world, parseNetwork(network), animationSpeedCoeff);
         window.animateRobot();
       };
 

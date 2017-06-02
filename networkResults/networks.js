@@ -410,4 +410,221 @@ const networkManual = {
     "dropout": 0
 };
 
-module.exports = { networkManual, networkMaxLeft };
+const netGood = {
+    "nodes": [
+        {
+            "bias": 0,
+            "type": "input",
+            "squash": "LOGISTIC",
+            "mask": 1,
+            "index": "0"
+        },
+        {
+            "bias": 0,
+            "type": "input",
+            "squash": "LOGISTIC",
+            "mask": 1,
+            "index": "1"
+        },
+        {
+            "bias": 0,
+            "type": "input",
+            "squash": "LOGISTIC",
+            "mask": 1,
+            "index": "2"
+        },
+        {
+            "bias": 0,
+            "type": "input",
+            "squash": "LOGISTIC",
+            "mask": 1,
+            "index": "3"
+        },
+        {
+            "bias": 0,
+            "type": "input",
+            "squash": "LOGISTIC",
+            "mask": 1,
+            "index": "4"
+        },
+        {
+            "bias": 0.033114893081065244,
+            "type": "hidden",
+            "squash": "HARD_TANH",
+            "mask": 1,
+            "index": "5"
+        },
+        {
+            "bias": -0.030901825758798837,
+            "type": "hidden",
+            "squash": "HARD_TANH",
+            "mask": 1,
+            "index": "6"
+        },
+        {
+            "bias": -0.02745598312510955,
+            "type": "output",
+            "squash": "BIPOLAR",
+            "mask": 1,
+            "index": "7"
+        },
+        {
+            "bias": -0.02745598312510955,
+            "type": "output",
+            "squash": "BIPOLAR",
+            "mask": 1,
+            "index": "8"
+        }
+    ],
+    "connections": [
+        {
+            "weight": -0.09169911216863219,
+            "from": 0,
+            "to": 5,
+            "gater": null
+        },
+        {
+            "weight": -0.05470961643223187,
+            "from": 1,
+            "to": 5,
+            "gater": null
+        },
+        {
+            "weight": -0.05601474157892908,
+            "from": 0,
+            "to": 6,
+            "gater": null
+        },
+        {
+            "weight": 0.06867334279378468,
+            "from": 2,
+            "to": 5,
+            "gater": null
+        },
+        {
+            "weight": 0.9150864410693815,
+            "from": 1,
+            "to": 6,
+            "gater": null
+        },
+        {
+            "weight": -0.05080529577459121,
+            "from": 3,
+            "to": 5,
+            "gater": null
+        },
+        {
+            "weight": -0.08651500329029607,
+            "from": 2,
+            "to": 6,
+            "gater": null
+        },
+        {
+            "weight": 0.061698864582062696,
+            "from": 0,
+            "to": 8,
+            "gater": null
+        },
+        {
+            "weight": 0.07525283854592826,
+            "from": 4,
+            "to": 5,
+            "gater": null
+        },
+        {
+            "weight": -0.0300096491856459,
+            "from": 3,
+            "to": 6,
+            "gater": null
+        },
+        {
+            "weight": -0.04582244060686951,
+            "from": 1,
+            "to": 8,
+            "gater": null
+        },
+        {
+            "weight": 0.07760691848224144,
+            "from": 4,
+            "to": 6,
+            "gater": null
+        },
+        {
+            "weight": 0.08848211402299719,
+            "from": 2,
+            "to": 8,
+            "gater": null
+        },
+        {
+            "weight": -0.010229558818926551,
+            "from": 3,
+            "to": 8,
+            "gater": null
+        },
+        {
+            "weight": -0.06749609458716935,
+            "from": 4,
+            "to": 8,
+            "gater": null
+        },
+        {
+            "weight": -0.07954600954240068,
+            "from": 5,
+            "to": 8,
+            "gater": null
+        },
+        {
+            "weight": -0.12092712957594767,
+            "from": 0,
+            "to": 7,
+            "gater": null
+        },
+        {
+            "weight": -0.051468088823936414,
+            "from": 1,
+            "to": 7,
+            "gater": null
+        },
+        {
+            "weight": 0.08344358065259919,
+            "from": 2,
+            "to": 7,
+            "gater": null
+        },
+        {
+            "weight": 0.011619580841077906,
+            "from": 3,
+            "to": 7,
+            "gater": null
+        },
+        {
+            "weight": -0.01319843354852028,
+            "from": 4,
+            "to": 7,
+            "gater": null
+        },
+        {
+            "weight": 0.05178263471382591,
+            "from": 5,
+            "to": 7,
+            "gater": null
+        },
+        {
+            "weight": -0.08208178886520345,
+            "from": 6,
+            "to": 8,
+            "gater": null
+        },
+        {
+            "weight": -0.07235885119792546,
+            "from": 6,
+            "to": 7,
+            "gater": null
+        }
+    ],
+    "input": 5,
+    "output": 2,
+    "dropout": 0
+};
+
+module.exports = { networkManual, networkMaxLeft, netGood };

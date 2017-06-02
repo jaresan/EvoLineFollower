@@ -7,12 +7,15 @@ function test(robotParams, world, network, speedCoeff) {
   window.animateRobot = animate.bind(this, robotParams, world, speedCoeff);
 }
 
-function train(robotParams, world, fitness) {
+function train(robotParams, world, evolutionParams) {
   console.log('--- Evolution started! ---');
-  const neuralNet = createNeat(fitnessEvaluator.bind(this, robotParams, world, fitness));
-
+  const neuralNet = createNeat(
+      fitnessEvaluator.bind(this, robotParams, world, evolutionParams.fitness),
+      evolutionParams.mutationRate,
+      evolutionParams.populationSize,
+      evolutionParams.hiddenNeurons);
   let iteration = 0;
-  const maxIterations = 200;
+  const maxIterations = evolutionParams.maxIterations;
   let network;
   const scores = [];
   const scoreMap = {};
@@ -21,6 +24,7 @@ function train(robotParams, world, fitness) {
 
     network = neuralNet.getFittest();
     scores.push(network.score);
+    console.log(JSON.stringify(network.toJSON(), undefined, 2));
     console.log(iteration + ": " + network.score);
     scoreMap[network.score] = network;
   }
