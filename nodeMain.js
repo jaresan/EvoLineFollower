@@ -41,12 +41,8 @@ function startNodeApp() {
 }
 
 const logger = (net) => {
-    fs.appendFile('fitnessResults/' + Params.evolutionParams.fitness.name + '.txt',
-      `\n${Math.round(net.score)}: ${JSON.stringify(net.toJSON())}\n`,
-      function (err) {
-        if (err) throw err;
-        console.log('Saved neural net!');
-    });
+    fs.appendFileSync('fitnessResults/' + Params.evolutionParams.fitness.name + '.txt',
+      `\n${Math.round(net.score)}: ${JSON.stringify(net.toJSON())}\n`);
 };
 
 const trainNet = () => {
