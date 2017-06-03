@@ -6,12 +6,8 @@ const positionPrecision = 9;
 function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neuralAbsoluteMax) {
   const mapToMin = -1;
   const mapToMax = 1;
-  const spread = mapToMax - mapToMin;
-  const neuralSpread = neuralAbsoluteMax - neuralAbsoluteMin;
-  let result;
 
-  return neuralOutput.map(val => {
-    result = mapToMin + (val - neuralAbsoluteMin) / neuralSpread * spread;
+  return neuralOutput.map(result => {
     result = Math.max(result, mapToMin);
     result = Math.min(result, mapToMax);
     return result;
@@ -69,7 +65,7 @@ class Robot {
   readSensors(world) {
     return this.sensorDeltas.map(([deltaX, deltaY]) => {
       const [x, y] = this.getSensorPosition(deltaX, deltaY);
-      return world.canSeeLine(x, y, this.sensorRadius);
+      return world.canSeeLine(x, y, this.sensorRadius) ? 1 : 0;
     });
   }
 

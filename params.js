@@ -5,7 +5,7 @@ const robotParams = {
         x: 0.50,
         y: 0.875,
     },
-    noSensorStopTimeout: 1, // When no sensors can see anything, stop after this time
+    noSensorStopTimeout: 200, // When no sensors can see anything, stop after this time
     sensorInterval: 0.02,
     maxSpeed: 0.2, // proc byla puvodne mensi nez startSpeed? (0.05 < 0.3)
     startSpeedCoeff: [0.3, 0.3],
@@ -34,9 +34,9 @@ const robotParams = {
 
 const evolutionParams = {
     mutationRate: 0.8,
-    populationSize: 100,
+    populationSize: 200,
     hiddenNeurons: 3,
-    maxIterations: 20,
+    maxIterations: 100,
     fitness: Fitness.noReverse
 };
 
