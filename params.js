@@ -34,9 +34,9 @@ const robotParams = {
 
 const evolutionParams = {
     mutationRate: 0.8,
-    populationSize: 200,
+    populationSize: 100,
     hiddenNeurons: 3,
-    maxIterations: 100,
+    maxIterations: 200,
     fitness: Fitness.noReverse
 };
 

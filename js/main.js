@@ -6,7 +6,7 @@ const Params = require('../params');
 
 const animationSpeedCoeff = 50;
 
-const imagePath = '../assets/track.png';
+const imagePath = '../assets/trackmff.png';
 
 if (typeof window !== 'undefined') {
   const getResizedImage = (src, targetWidth) => {
@@ -59,7 +59,7 @@ if (typeof window !== 'undefined') {
         return train(Params.robotParams, world, Params.evolutionParams)
       };
 
-      window.test = (network = Networks.netGood) => {
+      window.test = (network = Networks.firstTanhAttempt) => {
         const canvas = document.getElementById('canvasWrapper');
         if (canvas) {
           canvas.remove();
