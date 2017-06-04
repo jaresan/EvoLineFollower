@@ -3,7 +3,7 @@ const Fitness = require('./constants/fitnessFunctions');
 const robotParams = {
     position: {
         x: 0.50,
-        y: 0.875,
+        y: 0.175,
     },
     noSensorStopTimeout: 200, // When no sensors can see anything, stop after this time
     sensorInterval: 0.02,

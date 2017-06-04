@@ -1,4 +1,5 @@
 const { Neat, Methods, Architect, Network } = require('./NEAT/libs/neataptic');
+const Networks = require('./networkResults/networks');
 
 function createNeat(fitnessFunction, mutRate=0.8, pop=100, hiddenNeurons=3){
   Methods.Mutation.MOD_ACTIVATION.mutateOutput = false;
@@ -14,6 +15,7 @@ function createNeat(fitnessFunction, mutRate=0.8, pop=100, hiddenNeurons=3){
     mutationRate: mutRate,
     elitism: 5,
     popsize: pop,
+    //network: parseNetwork(Networks.secondTanhAttempt)
     network: net
   });
 }

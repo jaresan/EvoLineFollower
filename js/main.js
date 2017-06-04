@@ -4,9 +4,9 @@ const { parseNetwork } = require('../NeuralController');
 const Networks = require('../networkResults/networks');
 const Params = require('../params');
 
-const animationSpeedCoeff = 50;
+const animationSpeedCoeff = 10;
 
-const imagePath = '../assets/trackmff.png';
+const imagePath = '../assets/track.png';
 
 if (typeof window !== 'undefined') {
   const getResizedImage = (src, targetWidth) => {
@@ -59,7 +59,7 @@ if (typeof window !== 'undefined') {
         return train(Params.robotParams, world, Params.evolutionParams)
       };
 
-      window.test = (network = Networks.thirdTanhAttempt) => {
+      window.test = (network = Networks.largeNetPenalty) => {
         const canvas = document.getElementById('canvasWrapper');
         if (canvas) {
           canvas.remove();

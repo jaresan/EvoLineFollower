@@ -130,6 +130,9 @@ class Robot {
       iteration++;
     }
 
+    let net = this.behavior.neuralNet;
+    let largeNetPenalty = (net.input + net.output) / net.nodes.length;
+    fitnessValue *= largeNetPenalty;
     return fitnessValue;
   }
 
