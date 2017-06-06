@@ -19,7 +19,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "scripts": {
-    "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
+    "babel": "babel --presets es2015 src/main.js -o build/main.bundle.js",
     "start": "webpack-dev-server --output-public-path=/build/ --port 8000",
     "webpack": "webpack"
   },

@@ -1,6 +1,7 @@
-const World = require('./World');
+const World = require('./simulator/world');
 const { train } = require('./run');
-const Params = require('./params');
+const evolutionParams = require('./evolution/evolutionParams');
+const robotParams = require('./simulator/robotParams');
 const sharp = require('sharp');
 const fs = require('fs');
 
@@ -41,14 +42,14 @@ function startNodeApp() {
 }
 
 const logger = (net) => {
-    fs.appendFileSync('fitnessResults/' + Params.evolutionParams.fitness.name + '.txt',
+    fs.appendFileSync('fitnessResults/' + evolutionParams.evolutionParams.fitness.name + '.txt',
       `\n${Math.round(net.score)}: ${JSON.stringify(net.toJSON())}\n`);
 };
 
 const trainNet = () => {
   startNodeApp().then(img => {
     const world = new World(img, 1, 1);
-    return train(Params.robotParams, world, Params.evolutionParams, logger)
+    return train(robotParams.robotParams, world, evolutionParams.evolutionParams, logger)
   });
 };
 

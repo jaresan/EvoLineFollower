@@ -51,4 +51,31 @@ const noReverse = (robot, world) => {
   return score;
 };
 
-module.exports = { speed, speedAndMiddleOnLine, middleOnLine, distance, noReverse };
+const penalizeLarge = (robot, world) => {
+    const { left, right } = robot.speed;
+    const speed = left + right;
+
+    const sensors = robot.readSensors(world);
+    let penalty = sensors[2] ? 0 : 2;
+    penalty += speed < robot.maxSpeed / 10 ? 1 : 0;
+    penalty += speed < 0 ? 100 : 0;
+    let reward = sensors[2] && speed > robot.maxSpeed / 10 ? 10 * speed : 0;
+
+    let net = robot.behavior.neuralNet;
+    let largeNetPenalty = (net.nodes.length - net.input - net.output) / 5;
+
+    let score = -penalty -largeNetPenalty + reward;
+    return score;
+};
+
+// experimenting
+// The best one goes back and forth ....
+const clearFitness = (robot, world) => {
+    const { left, right } = robot.speed;
+    const speed = left + right;
+
+    return speed;
+};
+
+
+module.exports = { speed, speedAndMiddleOnLine, middleOnLine, distance, noReverse, penalizeLarge, clearFitness };

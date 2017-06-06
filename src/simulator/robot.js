@@ -1,4 +1,4 @@
-const { multiplyMatrices, roundWithPrecision, rotatePoint } = require('./utils');
+const { roundWithPrecision, rotatePoint } = require('./utils');
 
 // FIXME: Add some constants to constructor (e.g. max speed, sensor interval)
 const positionPrecision = 9;
@@ -14,7 +14,14 @@ function translateNeuralToSpeedCoeff(neuralOutput, neuralAbsoluteMin, neuralAbso
   });
 }
 
+/**
+ * Class representing a simulated robot.
+ */
 class Robot {
+    /**
+     *
+     * @returns {{left: number, right: number}}
+     */
   get speed() {
     // Signifies instant left/right wheel speed
     return {
@@ -130,9 +137,9 @@ class Robot {
       iteration++;
     }
 
-    let net = this.behavior.neuralNet;
-    let largeNetPenalty = (net.input + net.output) / net.nodes.length;
-    fitnessValue *= largeNetPenalty;
+    //let net = this.behavior.neuralNet;
+    //let largeNetPenalty = (net.input + net.output) / net.nodes.length;
+    //fitnessValue *= largeNetPenalty;
     return fitnessValue;
   }
 

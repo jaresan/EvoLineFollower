@@ -1,16 +1,17 @@
-const Settings = require('./constants/WorldSettings');
-const Robot = require('./Robot');
+const Settings = require('./worldSettings');
+const Robot = require('./robot');
+const World = require('./world');
 
 function drawRobot(ctx, robot, world) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    const {x, y} = world.convertWorldCoordsToFieldCoords(
+    const {x, y} = World.convertWorldCoordsToFieldCoords(
       robot.position.x,
       robot.position.y
     );
 
     const sensors = robot.sensorDeltas.map(([deltaX, deltaY]) => {
       const [x, y] = robot.getSensorPosition(deltaX, deltaY);
-      return world.convertWorldCoordsToFieldCoords(x, y);
+      return World.convertWorldCoordsToFieldCoords(x, y);
     });
 
     ctx.fillStyle = "rgba(150, 0, 0, 100)";
