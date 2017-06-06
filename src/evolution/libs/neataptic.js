@@ -1548,13 +1548,16 @@ Network.prototype = {
         break;
       case Mutation.MOD_ACTIVATION:
         // Has no effect on input node, so they are excluded
-        if(!method.mutateOutput && this.input + this.output == this.nodes.length){
+        if(!method.mutateOutput && this.output == this.nodes.length){
           if(Config.warnings) console.warn('No nodes that allow mutation of activation function');
           break;
         }
 
-        var index = Math.floor(Math.random() * (this.nodes.length - (method.mutateOutput ? 0 : this.output) - this.input) + this.input);
-        var node = this.nodes[index];
+        var node;
+        while(!node || node.type === 'output'){
+            let index = Math.floor(Math.random() * (this.nodes.length));
+            node = this.nodes[index];
+        }
 
         node.mutate(method);
         break;
@@ -1878,7 +1881,8 @@ Network.prototype = {
 
        json.nodes.push({
          id: index,
-         name: node.type == 'hidden' ? node.squash.name : node.type.toUpperCase(),
+         //name: node.type == 'hidden' ? node.squash.name : node.squash.name + " (" + node.type + ")",
+         name: node.squash.name,
          activation : node.activation,
          bias: node.bias
        });

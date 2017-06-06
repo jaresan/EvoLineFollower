@@ -6,7 +6,7 @@ const evolutionParams = require('./evolution/evolutionParams');
 const robotParams = require('./simulator/robotParams');
 require('./networksToDisplay');
 
-const animationSpeedCoeff = 10;
+const animationSpeedCoeff = 50;
 
 const imagePath = '../assets/track.png';
 
@@ -61,7 +61,7 @@ if (typeof window !== 'undefined') {
                 return train(robotParams.robotParams, world, evolutionParams.evolutionParams)
             };
 
-            window.test = (network = Networks.thirdTanhAttempt) => {
+            window.test = (network = Networks.supaFast) => {
                 const canvas = document.getElementById('canvasWrapper');
                 if (canvas) {
                     canvas.remove();
