@@ -5,7 +5,7 @@ const Networks = require('../networkResults/networks');
 const evolutionParams = require('./evolution/evolutionParams');
 const robotParams = require('./simulator/robotParams');
 
-const animationSpeedCoeff = 20;
+const animationSpeedCoeff = 10;
 
 const imagePath = '../assets/track.png';
 
@@ -69,6 +69,17 @@ if (typeof window !== 'undefined') {
                 test(robotParams.robotParams, world, parseNetwork(network), animationSpeedCoeff);
                 window.animateRobot();
             };
+
+            //window.displayNet = (network = Networks.thirdTanhAttempt) => {
+            //    let svg = document.createElement("svg");
+            //    svg.setAttribute("id", "draw");
+            //    svg.setAttribute("width", "500px");
+            //    svg.setAttribute("height", "500px");
+            //    document.body.appendChild(svg);
+            //
+            //    drawGraph(parseNetwork(network).graph(500, 500), '#draw');
+            //};
+
         });
     };
 
