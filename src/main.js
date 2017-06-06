@@ -4,6 +4,7 @@ const { parseNetwork } = require('./evolution/neat');
 const Networks = require('../networkResults/networks');
 const evolutionParams = require('./evolution/evolutionParams');
 const robotParams = require('./simulator/robotParams');
+require('./networksToDisplay');
 
 const animationSpeedCoeff = 10;
 
